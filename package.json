@@ -17,11 +17,11 @@
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "bing-chat": "^0.2.3",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "framer-motion": "^10.12.16",
     "next": "13.4.4",
-    "openai": "^3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"

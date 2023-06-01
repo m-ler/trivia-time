@@ -1,30 +1,29 @@
 'use client'
 
-import { Box, Button, Container } from '@chakra-ui/react'
-import { Configuration, OpenAIApi } from 'openai'
+import { Box, Button, Container, Text } from '@chakra-ui/react'
+import { NextResponse } from 'next/server'
 import { useState } from 'react'
 
 export const metadata = {
 	title: 'Trivia Time!',
 }
 
-const configuration = new Configuration({
-	apiKey: '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',
-})
-const openai = new OpenAIApi(configuration)
+type TriviaResponse = {
+	trivia: string
+}
 
 const Home = () => {
 	const [buttonLoading, setButtonLoading] = useState(false)
+	const [trivia, setTrivia] = useState('')
 
 	const handleClick = async () => {
 		setButtonLoading(true)
-		const completion = await openai.createCompletion({
-			model: 'gpt-3.5-turbo',
-			prompt: 'Hello world',
-		})
+		const response = await fetch('api/trivia')
+		const text = await response.text()
+		const triviaResult: TriviaResponse = JSON.parse(text)
 
 		setButtonLoading(false)
-		console.log(completion.data.choices[0].text)
+		setTrivia(triviaResult.trivia || '')
 	}
 
 	return (
@@ -36,9 +35,14 @@ const Home = () => {
 				height="100px"
 				borderRadius="2xl"
 			>
-				<Button colorScheme="primary" onClick={handleClick}>
+				<Button
+					colorScheme="primary"
+					onClick={handleClick}
+					isLoading={buttonLoading}
+				>
 					PLAY
 				</Button>
+				<Text color="gray.700">{trivia}</Text>
 			</Container>
 		</Box>
 	)
