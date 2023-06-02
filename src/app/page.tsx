@@ -1,7 +1,7 @@
 'use client'
 
-import { Box, Button, Container, Text } from '@chakra-ui/react'
-import { NextResponse } from 'next/server'
+import TriviaRoulette from '@/components/trivia-roulette'
+import { Box, Button, Center, Container, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export const metadata = {
@@ -28,13 +28,7 @@ const Home = () => {
 
 	return (
 		<Box as="main" width="100%" px={4} py={8}>
-			<Container
-				maxW="6xl"
-				width="100%"
-				bg="white"
-				height="100px"
-				borderRadius="2xl"
-			>
+			<Container maxW="6xl" width="100%" bg="white" borderRadius="2xl" py={4}>
 				<Button
 					colorScheme="primary"
 					onClick={handleClick}
@@ -42,6 +36,9 @@ const Home = () => {
 				>
 					PLAY
 				</Button>
+				<Center>
+					<TriviaRoulette />
+				</Center>
 				<Text color="gray.700">{trivia}</Text>
 			</Container>
 		</Box>

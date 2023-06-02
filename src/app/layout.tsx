@@ -8,6 +8,10 @@ import { Image, Link as NextLink } from '@chakra-ui/next-js'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const metadata = {
+	title: 'Trivia Time!',
+}
+
 const RootLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<html lang="en">
@@ -40,7 +44,12 @@ const RootLayout = ({ children }: PropsWithChildren) => {
 										mr={8}
 									/>
 									<Center>
-										<Link as={NextLink} href="/leaderboard" fontSize={14} color="gray.100">
+										<Link
+											as={NextLink}
+											href="/leaderboard"
+											fontSize={14}
+											color="gray.100"
+										>
 											Leaderboard
 										</Link>
 									</Center>
