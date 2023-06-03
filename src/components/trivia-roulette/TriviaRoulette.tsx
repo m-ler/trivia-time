@@ -13,11 +13,11 @@ const TriviaRoulette = () => {
 			w={300}
 			aspectRatio="1/1"
 		>
-			<RouletteItem index={0} itemsNumber={5} color="green.300" />
-			<RouletteItem index={1} itemsNumber={5} color="blue.300" />
-			<RouletteItem index={2} itemsNumber={5} color="purple.500" />
-			<RouletteItem index={3} itemsNumber={5} color="red.300" />
-			<RouletteItem index={4} itemsNumber={5} color="yellow.300" />
+			<RouletteItem index={0} color="green.300" />
+			<RouletteItem index={1} color="blue.300" />
+			<RouletteItem index={2} color="purple.500" />
+			<RouletteItem index={3} color="red.300" />
+			<RouletteItem index={4} color="yellow.300" />
 			<Box
 				position="absolute"
 				inset="0px"
