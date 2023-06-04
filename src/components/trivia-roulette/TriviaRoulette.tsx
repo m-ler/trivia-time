@@ -5,16 +5,37 @@ import SpinButton from './SpinButton'
 import { randomNumber } from '@/utils/math'
 import { TRIVIA_TOPICS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 
+const rouletteTickSFX = new Audio('/audio/roulette_tick.mp3')
+rouletteTickSFX.volume = 0.5
+
 const animateSpin = () => {
 	const speed = 8000
 	const degrees = randomNumber(0, 360)
 	const rotate = speed + degrees
 
 	anime({
-		targets: '#trivia-roulette-items',
+		targets: ['#trivia-roulette-items'],
 		rotate: [0, rotate],
 		duration: 5000,
 		easing: 'easeOutExpo',
+	})
+
+	const ticks = { ticks: 0, prevTicks: 0 }
+
+	anime({
+		targets: [ticks],
+		ticks: [0, (rotate / 360) * TRIVIA_TOPICS.length],
+		duration: 5000,
+		easing: 'easeOutExpo',
+		round: 1,
+		update: () => {
+			const roundedTicks = Math.round(ticks.ticks)
+			if (roundedTicks !== ticks.prevTicks) {
+				ticks.prevTicks = roundedTicks
+				rouletteTickSFX.currentTime = 0
+				rouletteTickSFX.play()
+			}
+		},
 	})
 }
 
