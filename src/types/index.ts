@@ -1,9 +1,3 @@
-export const TRIVIA_TOPICS = [
-	'Art',
-	'Entertainment',
-	'Geography',
-	'History',
-	'Science',
-] as const
+import { TRIVIA_TOPICS } from '@/config/constants'
 
 export type TriviaTopics = (typeof TRIVIA_TOPICS)[number]

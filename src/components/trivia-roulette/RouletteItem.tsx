@@ -1,10 +1,13 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Icon } from '@chakra-ui/react'
+import { IconType } from 'react-icons'
 
 type Props = {
 	index: number
 	color: string
+	icon: IconType
 }
-const RouletteItem = ({ index, color }: Props) => {
+
+const RouletteItem = ({ index, color, icon }: Props) => {
 	return (
 		<Box
 			inset="0"
@@ -14,18 +17,19 @@ const RouletteItem = ({ index, color }: Props) => {
 			backgroundColor={color}
 			transform={`rotate(${(360 / 5) * index}deg)`}
 		>
-			<span
-				style={{
+			<Icon
+				as={icon}
+				color="rgba(0,0,0,0.22)"
+				sx={{
 					display: 'block',
 					transform: 'translate(-50%, -50%)',
 					position: 'absolute',
-					top: '25%',
+					top: '18%',
 					left: '50%',
-					fontSize: 32,
+					w: '15%',
+					h: '15%',
 				}}
-			>
-				{index + 1}
-			</span>
+			/>
 		</Box>
 	)
 }

@@ -1,31 +1,67 @@
 import { Box } from '@chakra-ui/react'
 import RouletteItem from './RouletteItem'
+import anime from 'animejs'
+import SpinButton from './SpinButton'
+import { randomNumber } from '@/utils/math'
+import { TRIVIA_TOPICS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
+
+const animateSpin = () => {
+	const speed = 8000
+	const degrees = randomNumber(0, 360)
+	const rotate = speed + degrees
+
+	anime({
+		targets: '#trivia-roulette-items',
+		rotate: [0, rotate],
+		duration: 5000,
+		easing: 'easeOutExpo',
+	})
+}
 
 const TriviaRoulette = () => {
+	const startTrivia = () => {
+		animateSpin()
+	}
+
 	return (
 		<Box
+			m="10px"
 			borderRadius="50%"
 			position="relative"
 			overflow="hidden"
-			border="5px solid"
+			border="6px solid"
 			boxSizing="content-box"
-			borderColor="primary.400"
+			borderColor="gray.400"
 			w={300}
 			aspectRatio="1/1"
 		>
-			<RouletteItem index={0} color="green.300" />
-			<RouletteItem index={1} color="blue.300" />
-			<RouletteItem index={2} color="purple.500" />
-			<RouletteItem index={3} color="red.300" />
-			<RouletteItem index={4} color="yellow.300" />
+			<Box
+				id="trivia-roulette-items"
+				position="absolute"
+				inset="0"
+				borderRadius="50%"
+				border="10px solid"
+				borderColor="white"
+				overflow="hidden"
+			>
+				{TRIVIA_TOPICS.map((topic, i) => (
+					<RouletteItem
+						key={i}
+						index={i}
+						color={topic.toLowerCase()}
+						icon={TRIVIA_TOPICS_ICONS[i]}
+					/>
+				))}
+			</Box>
+
 			<Box
 				position="absolute"
 				inset="0px"
-				border="10px solid"
-				borderColor="primary.200"
 				borderRadius="50%"
-				boxShadow="inset 0px 2px 10px rgba(0,30,20,0.35)"
+				boxShadow="inset 0px 2px 10px rgba(0,30,20,0.25)"
 			></Box>
+
+			<SpinButton onClick={startTrivia} />
 		</Box>
 	)
 }

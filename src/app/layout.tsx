@@ -24,9 +24,9 @@ const RootLayout = ({ children }: PropsWithChildren) => {
 					`}
 				</style>
 			</head>
-			<body>
+			<body style={{ minWidth: 320 }}>
 				<Providers>
-					<Flex as="header" bg="secondary.500" px={4} py={3}>
+					<Flex as="header" bg="secondary.700" px={4} py={3}>
 						<Center w="100%">
 							<Flex
 								width="100%"
