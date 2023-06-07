@@ -1,11 +1,11 @@
-import { TriviaTopics } from '@/types'
+import { TriviaTopic } from '@/types'
 
 type SubTopic = {
 	name: string
 	epochRange?: [number, number]
 	epochSize?: number
 }
-type TopicList = { [key in TriviaTopics]: SubTopic[] }
+type TopicList = { [key in TriviaTopic]: SubTopic[] }
 
 export const topicList: TopicList = {
 	Art: [

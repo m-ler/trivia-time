@@ -1,11 +1,13 @@
 import { extendTheme } from '@chakra-ui/react'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const chakraTheme = extendTheme({
 	styles: {
 		global: {
 			body: {
 				bg: 'secondary.500',
-				color: 'white',
 			},
 		},
 	},
@@ -41,7 +43,7 @@ export const chakraTheme = extendTheme({
 		science: '#673ab7',
 	},
 	fonts: {
-		heading: 'var(--font-inter)',
-		body: 'var(--font-inter)',
+		heading: inter.style.fontFamily,
+		body: inter.style.fontFamily,
 	},
 })

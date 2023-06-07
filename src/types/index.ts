@@ -1,3 +1,3 @@
 import { TRIVIA_TOPICS } from '@/config/constants'
 
-export type TriviaTopics = (typeof TRIVIA_TOPICS)[number]
+export type TriviaTopic = (typeof TRIVIA_TOPICS)[number]

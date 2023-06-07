@@ -22,6 +22,7 @@ const SpinButton = ({ onClick }: Props) => {
 			borderColor="white"
 			onClick={onClick}
 			color="gray.200"
+			outline="none"
 			transitionDuration="200ms"
 			sx={{
 				'&:hover': {

@@ -1,3 +1,7 @@
+export const metadata = {
+	title: 'Leaderboard',
+}
+
 const Leaderboard = () => {
 	return <></>
 }

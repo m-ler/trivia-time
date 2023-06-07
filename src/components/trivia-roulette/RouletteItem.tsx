@@ -13,7 +13,7 @@ const RouletteItem = ({ index, color, icon }: Props) => {
 			inset="0"
 			position="absolute"
 			zIndex={0}
-			clipPath="polygon(0% 0%, 88% 0%, 50% 50%, 12% 0%)"
+			clipPath="polygon(0% 0%, 87% 0%, 50% 50%, 13% 0%)"
 			backgroundColor={color}
 			transform={`rotate(${(360 / 5) * index}deg)`}
 		>
