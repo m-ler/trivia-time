@@ -1,32 +1,18 @@
 'use client'
 
-import { Box, Button, Center, Container, Text } from '@chakra-ui/react'
+import { Box, Center, Container } from '@chakra-ui/react'
 import TriviaRoulette from './trivia-roulette'
 import { useState } from 'react'
-import TriviaDialog from './TriviaDialog'
+import TriviaDialog from './trivia-dialog'
 import { TriviaTopic } from '@/types'
-
-type TriviaResponse = {
-	trivia: string
-}
+import useTriviaRequest from '@/hooks/useTriviaRequest'
 
 const MainMenu = () => {
 	const [triviaTopic, setTriviaTopic] = useState<TriviaTopic | null>(null)
-	//const [buttonLoading, setButtonLoading] = useState(false)
-	//const [trivia, setTrivia] = useState('')
-
-	/* const handleClick = async () => {
-		setButtonLoading(true)
-		const response = await fetch('api/trivia')
-		const text = await response.text()
-		const triviaResult: TriviaResponse = JSON.parse(text)
-
-		setButtonLoading(false)
-		setTrivia(triviaResult.trivia || '')
-	} */
+	const { requestTrivia } = useTriviaRequest()
 
 	const onSpinStart = (topic: TriviaTopic) => {
-		//
+		requestTrivia(topic)
 	}
 
 	const onSpinEnd = (topic: TriviaTopic) => {

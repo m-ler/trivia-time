@@ -90,7 +90,7 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 				overflow="hidden"
 			>
 				{TRIVIA_TOPICS.map((topic, i) => (
-					<RouletteItem key={i} index={i} color={topic.toLowerCase()} icon={TRIVIA_TOPICS_ICONS[i]} />
+					<RouletteItem key={i} index={i} color={topic.toLowerCase()} icon={TRIVIA_TOPICS_ICONS[topic]} />
 				))}
 			</Box>
 
