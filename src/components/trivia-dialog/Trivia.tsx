@@ -1,7 +1,8 @@
 import { TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { TriviaTopic } from '@/types'
-import {  Button, Icon, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Icon, Spinner, Stack, Text } from '@chakra-ui/react'
+import TriviaOption from './TriviaOption'
 
 type Props = {
 	topic: TriviaTopic | null
@@ -9,9 +10,9 @@ type Props = {
 
 const Trivia = ({ topic }: Props) => {
 	const { triviaQuery, triviaObj } = useTriviaRequest()
-	console.log(triviaObj)
 
 	if (!topic) return <></>
+	console.log(triviaObj)
 
 	return (
 		<Stack alignItems="center" py={4}>
@@ -27,7 +28,7 @@ const Trivia = ({ topic }: Props) => {
 					<Spinner />
 				</Stack>
 			) : (
-				<Stack py={4}>
+				<Stack py={4} maxW="full">
 					<Text
 						bg={topic.toLowerCase()}
 						p={4}
@@ -40,10 +41,10 @@ const Trivia = ({ topic }: Props) => {
 					>
 						{triviaObj?.trivia}
 					</Text>
-					<Button>{triviaObj?.a}</Button>
-					<Button>{triviaObj?.b}</Button>
-					<Button>{triviaObj?.c}</Button>
-					<Button>{triviaObj?.d}</Button>
+					<TriviaOption text={triviaObj.a} correct={triviaObj.correct === 'a'} />
+					<TriviaOption text={triviaObj.b} correct={triviaObj.correct === 'b'} />
+					<TriviaOption text={triviaObj.c} correct={triviaObj.correct === 'c'} />
+					<TriviaOption text={triviaObj.d} correct={triviaObj.correct === 'd'} />
 				</Stack>
 			)}
 		</Stack>
