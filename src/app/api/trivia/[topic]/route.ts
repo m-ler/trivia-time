@@ -1,4 +1,4 @@
-import { generateTrivia } from '@/trivia/generateTrivia'
+import { generateTrivia } from '@/lib/trivia/generateTrivia'
 import { TriviaTopic } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
