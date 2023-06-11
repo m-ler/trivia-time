@@ -1,5 +1,5 @@
 import { TRIVIA_TOPICS_ICONS } from '@/config/constants'
-import { TriviaTopic } from '@/types'
+import { triviaDialogState } from '@/store/trivia-dialog'
 import { Icon, Stack, Text } from '@chakra-ui/react'
 import anime from 'animejs'
 import { useEffect } from 'react'
@@ -16,11 +16,12 @@ const animate = (onComplete: () => void) => {
 }
 
 type Props = {
-	topic: TriviaTopic | null
 	onAnimationComplete: () => void
 }
 
-const TopicAnimation = ({ topic, onAnimationComplete }: Props) => {
+const TopicAnimation = ({ onAnimationComplete }: Props) => {
+	const { topic } = triviaDialogState((state) => state)
+
 	useEffect(() => {
 		animate(onAnimationComplete)
 	}, [topic])

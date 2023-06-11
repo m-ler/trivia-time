@@ -2,13 +2,14 @@
 
 import { Box, Center, Container } from '@chakra-ui/react'
 import TriviaRoulette from './trivia-roulette'
-import { useState } from 'react'
 import TriviaDialog from './trivia-dialog'
 import { TriviaTopic } from '@/types'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
+import { triviaDialogState } from '@/store/trivia-dialog'
 
 const MainMenu = () => {
-	const [triviaTopic, setTriviaTopic] = useState<TriviaTopic | null>(null)
+	//const [ setTriviaTopic] = useState<TriviaTopic | null>(null)
+	const triviaDialog = triviaDialogState((state) => state)
 	const { requestTrivia } = useTriviaRequest()
 
 	const onSpinStart = (topic: TriviaTopic) => {
@@ -16,7 +17,8 @@ const MainMenu = () => {
 	}
 
 	const onSpinEnd = (topic: TriviaTopic) => {
-		setTriviaTopic(topic)
+		triviaDialog.setTopic(topic)
+		triviaDialog.setOpen(true)
 	}
 
 	return (
@@ -25,7 +27,7 @@ const MainMenu = () => {
 				<Center>
 					<TriviaRoulette onSpinStart={onSpinStart} onSpinEnd={onSpinEnd} />
 				</Center>
-				<TriviaDialog triviaTopic={triviaTopic} onClose={() => setTriviaTopic(null)} />
+				<TriviaDialog />
 			</Container>
 		</Box>
 	)

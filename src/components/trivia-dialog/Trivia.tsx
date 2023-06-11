@@ -1,17 +1,13 @@
 import { TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
-import { TriviaTopic } from '@/types'
 import { Icon, Spinner, Stack, Text } from '@chakra-ui/react'
 import TriviaOption from './TriviaOption'
 import APIError from './APIError'
+import { triviaDialogState } from '@/store/trivia-dialog'
 
-type Props = {
-	topic: TriviaTopic | null
-	onClose: () => void
-}
-
-const Trivia = ({ topic, onClose }: Props) => {
+const Trivia = () => {
 	const { triviaQuery, trivia, apiError } = useTriviaRequest()
+	const { topic } = triviaDialogState((state) => state)
 
 	if (!topic) return <></>
 	const isError = Boolean(triviaQuery.error || apiError)
@@ -30,7 +26,7 @@ const Trivia = ({ topic, onClose }: Props) => {
 					<Spinner />
 				</Stack>
 			) : isError ? (
-				<APIError errorCode={triviaQuery.data?.data.errorCode || ''} onClose={onClose} />
+				<APIError errorCode={triviaQuery.data?.data.errorCode || ''} />
 			) : (
 				<Stack py={4} maxW="full">
 					<Text
