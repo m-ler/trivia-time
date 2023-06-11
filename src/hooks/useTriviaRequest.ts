@@ -1,5 +1,5 @@
-import { TriviaObject, TriviaTopic } from '@/types'
-import { getRequest } from '@/utils/fetch'
+import { TriviaAPIResponse, TriviaObject, TriviaTopic } from '@/types'
+import axios from 'axios'
 import { useRef } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 
@@ -7,20 +7,22 @@ const useTriviaRequest = () => {
 	const topicRef = useRef('')
 	const queryClient = useQueryClient()
 	const queryKey = ['triviaRequest']
-	const triviaQuery = useQuery<string>(queryKey, () => getRequest(`api/trivia?topic=${topicRef.current}`), {
+	const triviaQuery = useQuery(queryKey, () => axios<TriviaAPIResponse>(`api/trivia/${topicRef.current}`), {
 		enabled: false,
 		staleTime: Infinity,
+		retry: 0,
 	})
 
-	const requestTrivia = (topic: TriviaTopic) => { 
+	const requestTrivia = (topic: TriviaTopic) => {
 		topicRef.current = topic
 		queryClient.cancelQueries(queryKey)
 		triviaQuery.refetch({})
 	}
 
-	const triviaObj: TriviaObject = triviaQuery.data ? JSON.parse(triviaQuery.data) : null
+	const trivia: TriviaObject = triviaQuery.data?.data.trivia ? JSON.parse(triviaQuery.data.data.trivia) : null
+	const apiError = triviaQuery.data?.data.error
 
-	return { requestTrivia, triviaQuery, triviaObj }
+	return { requestTrivia, triviaQuery, trivia, apiError }
 }
 
 export default useTriviaRequest

@@ -3,20 +3,22 @@ import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { TriviaTopic } from '@/types'
 import { Icon, Spinner, Stack, Text } from '@chakra-ui/react'
 import TriviaOption from './TriviaOption'
+import APIError from './APIError'
 
 type Props = {
 	topic: TriviaTopic | null
+	onClose: () => void
 }
 
-const Trivia = ({ topic }: Props) => {
-	const { triviaQuery, triviaObj } = useTriviaRequest()
+const Trivia = ({ topic, onClose }: Props) => {
+	const { triviaQuery, trivia, apiError } = useTriviaRequest()
 
 	if (!topic) return <></>
-	console.log(triviaObj)
+	const isError = Boolean(triviaQuery.error || apiError)
 
 	return (
 		<Stack alignItems="center" py={4}>
-			<Stack direction="row" alignItems="center" bg={topic.toLowerCase()} p={2} borderRadius="md">
+			<Stack direction="row" alignItems="center" bg={topic.toLowerCase()} p={2} borderRadius="md" hidden={isError}>
 				<Icon as={TRIVIA_TOPICS_ICONS[topic]} boxSize="4" color="white"></Icon>
 				<Text color="white" fontWeight="bold" fontSize={12}>
 					{topic.toUpperCase()}
@@ -27,6 +29,8 @@ const Trivia = ({ topic }: Props) => {
 					<Text>🤖 Thinking...</Text>
 					<Spinner />
 				</Stack>
+			) : isError ? (
+				<APIError errorCode={apiError || ''} onClose={onClose} />
 			) : (
 				<Stack py={4} maxW="full">
 					<Text
@@ -39,12 +43,12 @@ const Trivia = ({ topic }: Props) => {
 						color="white"
 						mb={4}
 					>
-						{triviaObj?.trivia}
+						{trivia.trivia}
 					</Text>
-					<TriviaOption text={triviaObj.a} correct={triviaObj.correct === 'a'} />
-					<TriviaOption text={triviaObj.b} correct={triviaObj.correct === 'b'} />
-					<TriviaOption text={triviaObj.c} correct={triviaObj.correct === 'c'} />
-					<TriviaOption text={triviaObj.d} correct={triviaObj.correct === 'd'} />
+					<TriviaOption text={trivia.a} correct={trivia.correct === 'a'} />
+					<TriviaOption text={trivia.b} correct={trivia.correct === 'b'} />
+					<TriviaOption text={trivia.c} correct={trivia.correct === 'c'} />
+					<TriviaOption text={trivia.d} correct={trivia.correct === 'd'} />
 				</Stack>
 			)}
 		</Stack>

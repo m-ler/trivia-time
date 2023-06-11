@@ -26,7 +26,7 @@ const TriviaDialog = ({ triviaTopic, onClose }: Props) => {
 					{showTopicAnimation ? (
 						<TopicAnimation topic={triviaTopic} onAnimationComplete={() => setShowTopicAnimation(false)} />
 					) : (
-						<Trivia topic={triviaTopic} />
+						<Trivia topic={triviaTopic} onClose={onClose} />
 					)}
 				</ModalBody>
 			</ModalContent>

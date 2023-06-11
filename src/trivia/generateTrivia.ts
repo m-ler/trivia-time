@@ -1,5 +1,5 @@
 import { openaiAPI } from '@/lib/openai/api'
-import { TriviaTopic } from '@/types'
+import { TriviaAPIResponse, TriviaTopic } from '@/types'
 import jsonschema, { Schema } from 'jsonschema'
 import { topicList } from './topicList'
 import { randomNumber } from '@/utils/math'
@@ -34,28 +34,41 @@ const triviaSchemaPromptExample = '{trivia: "question", a: "", b: "", c: "", d: 
 const createPrompt = (topic: string, role: string) =>
 	`Give me a trivia about ${topic} that a ${role} would say. The trivia must have 4 options where only 1 is correct. Your response is always a JSON file with this schema: ${triviaSchemaPromptExample}`
 
+type APIError = {
+	response?: {
+		message?: string
+		status?: number
+	}
+}
+
+const getTrivia = async (topic: TriviaTopic) => {
+	const triviaResponse: TriviaAPIResponse = {}
+
+	try {
+		const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()
+		const role = humanRoles[randomNumber(0, humanRoles.length - 1)].toLowerCase()
+		const prompt = createPrompt(subtopic, role)
+
+		const response = await openaiAPI.createChatCompletion({
+			model: 'gpt-3.5-turbo',
+			messages: [{ role: 'user', content: prompt }],
+		})
+
+		triviaResponse.trivia = response.data.choices[0].message?.content || ''
+		return triviaResponse
+	} catch (error) {
+		const status = (error as APIError).response?.status
+		triviaResponse.error = status?.toString()
+		return triviaResponse
+	}
+}
+
 export const generateTrivia = async (topic: TriviaTopic) => {
-	let trivia = ''
-	let error: unknown | null = null
+	let result: TriviaAPIResponse
 
 	do {
-		try {
-			const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()
-			const role = humanRoles[randomNumber(0, humanRoles.length - 1)].toLowerCase()
-			const prompt = createPrompt(subtopic, role)
-			console.log(prompt)
+		result = await getTrivia(topic)
+	} while (!validateTriviaSchema(result.trivia || '') && !result.error)
 
-			const response = await openaiAPI.createChatCompletion({
-				model: 'gpt-3.5-turbo',
-				messages: [{ role: 'user', content: prompt }],
-			})
-			trivia = response.data.choices[0].message?.content || ''
-		} catch (e) {
-			error = e
-			break
-		}
-	} while (!validateTriviaSchema(trivia))
-
-	if (error) throw error
-	return trivia
+	return result
 }

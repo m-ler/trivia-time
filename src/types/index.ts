@@ -10,3 +10,8 @@ export type TriviaObject = {
 	d: string
 	correct: string
 }
+
+export type TriviaAPIResponse = {
+	error?: string
+	trivia?: string
+}
