@@ -11,8 +11,8 @@ const TriviaDialog = () => {
 	const [showTopicAnimation, setShowTopicAnimation] = useState(false)
 
 	useEffect(() => {
-		setShowTopicAnimation(Boolean(triviaDialog.setTopic))
-	}, [triviaDialog.setTopic])
+		setShowTopicAnimation(Boolean(triviaDialog.topic))
+	}, [triviaDialog.topic])
 
 	const onClose = () => {
 		triviaDialog.setOpen(false)
