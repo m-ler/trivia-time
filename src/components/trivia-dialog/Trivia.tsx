@@ -30,7 +30,7 @@ const Trivia = ({ topic, onClose }: Props) => {
 					<Spinner />
 				</Stack>
 			) : isError ? (
-				<APIError errorCode={apiError || ''} onClose={onClose} />
+				<APIError errorCode={triviaQuery.data?.data.errorCode || ''} onClose={onClose} />
 			) : (
 				<Stack py={4} maxW="full">
 					<Text

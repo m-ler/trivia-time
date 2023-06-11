@@ -7,7 +7,7 @@ type Props = {
 	onClose: () => void
 }
 
-const defaultMessage = "Couldn't establish a connection to the API at the moment. Please try again later."
+const defaultMessage = 'There seems to be an issue with the API at this time. Please try again later.'
 
 const APIError = ({ errorCode, onClose }: Props) => {
 	const errorMessages = getErrorMessages(errorCode) || []

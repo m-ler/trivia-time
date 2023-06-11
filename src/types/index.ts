@@ -12,6 +12,7 @@ export type TriviaObject = {
 }
 
 export type TriviaAPIResponse = {
-	error?: string
+	error?: boolean
+	errorCode?: string
 	trivia?: string
 }

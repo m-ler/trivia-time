@@ -58,17 +58,22 @@ const getTrivia = async (topic: TriviaTopic) => {
 		return triviaResponse
 	} catch (error) {
 		const status = (error as APIError).response?.status
-		triviaResponse.error = status?.toString()
+		triviaResponse.errorCode = status?.toString()
 		return triviaResponse
 	}
 }
 
 export const generateTrivia = async (topic: TriviaTopic) => {
-	let result: TriviaAPIResponse
+	let result: TriviaAPIResponse = {}
+	const attempts = 3
 
-	do {
+	for (let i = 0; i < attempts; i++) {
 		result = await getTrivia(topic)
-	} while (!validateTriviaSchema(result.trivia || '') && !result.error)
+		const tryAgain = !validateTriviaSchema(result.trivia || '') && !result.error
+		if (!tryAgain) break
+	}
+
+	result.error = Boolean(result.error) || !Boolean(result.trivia)
 
 	return result
 }
