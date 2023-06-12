@@ -6,13 +6,13 @@ import anime from 'animejs'
 import SpinButton from './SpinButton'
 import { randomNumber } from '@/utils/math'
 import { TRIVIA_TOPICS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
-import { useEffect, useState } from 'react'
 import { TriviaTopic } from '@/types'
+import useSFX from '@/hooks/useSFX'
 
 const SPIN_FORCE = 360 * 20
 const ROTATED_TRIVIA_TOPICS = [TRIVIA_TOPICS[0], ...TRIVIA_TOPICS.slice(1).reverse()]
 
-const animateSpin = (degrees: number, onComplete: () => void, tickSFX: HTMLAudioElement | null) => {
+const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => void) => {
 	const rotation = SPIN_FORCE + degrees
 
 	anime({
@@ -25,9 +25,6 @@ const animateSpin = (degrees: number, onComplete: () => void, tickSFX: HTMLAudio
 
 	const ticks = { ticks: 0, prevTicks: 0 }
 
-	if (!tickSFX) return
-	tickSFX.volume = 0.5
-
 	anime({
 		targets: [ticks],
 		ticks: [0, (rotation / 360) * TRIVIA_TOPICS.length],
@@ -39,8 +36,7 @@ const animateSpin = (degrees: number, onComplete: () => void, tickSFX: HTMLAudio
 
 			if (roundedTicks !== ticks.prevTicks) {
 				ticks.prevTicks = roundedTicks
-				tickSFX.currentTime = 0
-				tickSFX.play()
+				playSFX()
 			}
 		},
 	})
@@ -52,11 +48,7 @@ type Props = {
 }
 
 const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
-	const [tickSFX, setTickSFX] = useState<HTMLAudioElement | null>(null)
-
-	useEffect(() => {
-		setTickSFX(new Audio('/audio/roulette_tick.mp3'))
-	}, [])
+	const { playSFX } = useSFX()
 
 	const startTrivia = () => {
 		const degrees = randomNumber(0, 360)
@@ -65,7 +57,7 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 		const onComplete = () => onSpinEnd(topic)
 
 		onSpinStart(topic)
-		animateSpin(degrees, onComplete, tickSFX)
+		animateSpin(degrees, onComplete, () => playSFX('roulette_tick'))
 	}
 
 	return (

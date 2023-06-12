@@ -1,3 +1,4 @@
+import useSFX from '@/hooks/useSFX'
 import { Button } from '@chakra-ui/react'
 import anime from 'animejs'
 import { useEffect } from 'react'
@@ -23,6 +24,7 @@ const animate = (buttonId: string, delay: number) => {
 const TriviaOptionButton = ({ text, correct, index, revealAnswer, onClick }: Props) => {
 	const buttonId = `trivia-option-${index}`
 	const colorScheme = correct ? 'green' : 'orange'
+	const { playSFX } = useSFX()
 
 	useEffect(() => {
 		animate(buttonId, 300 * index)
@@ -30,7 +32,8 @@ const TriviaOptionButton = ({ text, correct, index, revealAnswer, onClick }: Pro
 
 	const handleClick = () => {
 		if (revealAnswer) return
-		new Audio(`/audio/${correct ? 'correct' : 'wrong'}_answer.mp3`).play()
+
+		playSFX(correct ? 'correct_answer' : 'wrong_answer')
 		onClick(correct)
 	}
 

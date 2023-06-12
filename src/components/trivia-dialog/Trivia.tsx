@@ -5,6 +5,7 @@ import TriviaOptionButton from './TriviaOptionButton'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import { useEffect, useRef, useState } from 'react'
 import { TriviaObject } from '@/types'
+import useSFX from '@/hooks/useSFX'
 
 const TIMEOUT = 30
 
@@ -14,9 +15,10 @@ const Trivia = () => {
 	const [revealAnswer, setRevealAnswer] = useState(false)
 	const timerRef = useRef<number>(0)
 	const [seconds, setSeconds] = useState(TIMEOUT)
+	const { playSFX } = useSFX()
 
 	useEffect(() => {
-		new Audio('/audio/trivia_start.mp3').play()
+		playSFX('trivia_start')
 
 		timerRef.current = window.setInterval(() => {
 			setSeconds((prev) => {
@@ -30,7 +32,7 @@ const Trivia = () => {
 		}, 1000)
 	}, [])
 
-	const onOptionClick = (correct: boolean) => {
+	const onOptionClick = () => {
 		setRevealAnswer(true)
 		clearInterval(timerRef.current)
 	}

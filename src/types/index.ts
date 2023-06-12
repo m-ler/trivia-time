@@ -1,4 +1,4 @@
-import { TRIVIA_OPTIONS, TRIVIA_TOPICS } from '@/config/constants'
+import { SFX_LIST, TRIVIA_OPTIONS, TRIVIA_TOPICS } from '@/config/constants'
 
 export type TriviaTopic = (typeof TRIVIA_TOPICS)[number]
 
@@ -18,3 +18,4 @@ export type TriviaAPIResponse = {
 }
 
 export type TriviaOption = (typeof TRIVIA_OPTIONS)[number]
+export type SFX = (typeof SFX_LIST)[number]

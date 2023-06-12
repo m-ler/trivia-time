@@ -1,4 +1,5 @@
 import { TRIVIA_TOPICS_ICONS } from '@/config/constants'
+import useSFX from '@/hooks/useSFX'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import { Icon, Stack, Text } from '@chakra-ui/react'
 import anime from 'animejs'
@@ -21,10 +22,11 @@ type Props = {
 
 const TopicAnimation = ({ onAnimationComplete }: Props) => {
 	const { topic } = triviaDialogState((state) => state)
+	const { playSFX } = useSFX()
 
 	useEffect(() => {
 		animate(onAnimationComplete)
-		new Audio('/audio/topic_animation.mp3').play()
+		playSFX('topic_animation')
 	}, [])
 
 	if (!topic) return <></>
