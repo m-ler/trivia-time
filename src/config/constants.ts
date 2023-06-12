@@ -22,5 +22,6 @@ export const SFX_LIST = [
 	'trivia_start',
 	'wrong_answer',
 	'pop1',
-	'click1'
+	'click1',
+	'timeout'
 ] as const

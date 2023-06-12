@@ -3,7 +3,7 @@
 import { Modal, ModalBody, ModalContent, ModalOverlay, Spinner, Stack, Text } from '@chakra-ui/react'
 import TopicAnimation from './TopicAnimation'
 import { useEffect, useRef, useState } from 'react'
-import Trivia from './Trivia'
+import Trivia from '../Trivia'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import APIError from './APIError'
 import useTriviaRequest from '@/hooks/useTriviaRequest'

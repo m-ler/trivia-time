@@ -1,7 +1,7 @@
 import { TRIVIA_OPTIONS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { Button, Icon, Progress, Stack, Text } from '@chakra-ui/react'
-import TriviaOptionButton from './TriviaOptionButton'
+import TriviaOptionButton from './trivia-dialog/TriviaOptionButton'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import { useEffect, useRef, useState } from 'react'
 import { TriviaObject } from '@/types'
@@ -17,13 +17,19 @@ const Trivia = () => {
 	const [seconds, setSeconds] = useState(TIMEOUT)
 	const { playSFX } = useSFX()
 
+	const onTimeOut = () => {
+		setRevealAnswer(true)
+		clearInterval(timerRef.current)
+		playSFX('timeout')
+	}
+
 	useEffect(() => {
 		playSFX('trivia_start')
 
 		timerRef.current = window.setInterval(() => {
 			setSeconds((prev) => {
 				if (prev <= 0) {
-					clearInterval(timerRef.current)
+					onTimeOut()
 					return prev
 				}
 
@@ -50,7 +56,7 @@ const Trivia = () => {
 						</Text>
 					</Stack>
 					<Text color="white" fontWeight="black" hidden={revealAnswer}>
-						{seconds}
+						{seconds }
 					</Text>
 				</Stack>
 
