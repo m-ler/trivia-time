@@ -2,7 +2,7 @@ import { TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import { Icon, Stack, Text } from '@chakra-ui/react'
 import anime from 'animejs'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const animate = (onComplete: () => void) => {
 	anime({
@@ -16,27 +16,20 @@ const animate = (onComplete: () => void) => {
 }
 
 type Props = {
-	show: boolean
 	onAnimationComplete: () => void
 }
 
-const TopicAnimation = ({ show, onAnimationComplete }: Props) => {
+const TopicAnimation = ({ onAnimationComplete }: Props) => {
 	const { topic } = triviaDialogState((state) => state)
-	const [sfx, setSFX] = useState<HTMLAudioElement | null>(null)
 
 	useEffect(() => {
-		setSFX(new Audio('/audio/topic_animation.mp3'))
-	}, [])
-
-	useEffect(() => {
-		if (!show) return
 		animate(onAnimationComplete)
-		sfx?.play()
-	}, [topic, show])
+		new Audio('/audio/topic_animation.mp3').play()
+	}, [])
 
 	if (!topic) return <></>
 
-	return show ? (
+	return (
 		<Stack alignItems="center" p={8} gap={4} id="topic-animation">
 			<Icon boxSize="10" as={TRIVIA_TOPICS_ICONS[topic]} margin="auto" color={topic.toLowerCase()} />
 			<Text
@@ -52,8 +45,6 @@ const TopicAnimation = ({ show, onAnimationComplete }: Props) => {
 				{topic}
 			</Text>
 		</Stack>
-	) : (
-		<></>
 	)
 }
 

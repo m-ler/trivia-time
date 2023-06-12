@@ -2,7 +2,7 @@
 
 import { Modal, ModalBody, ModalContent, ModalOverlay, Spinner, Stack, Text } from '@chakra-ui/react'
 import TopicAnimation from './TopicAnimation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Trivia from './Trivia'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import APIError from './APIError'
@@ -10,26 +10,37 @@ import useTriviaRequest from '@/hooks/useTriviaRequest'
 
 const TriviaDialog = () => {
 	const triviaDialog = triviaDialogState((state) => state)
-	const [showTopicAnimation, setShowTopicAnimation] = useState(false)
+	const [showIntroAnimation, setShowIntroAnimation] = useState(false)
+	const introAnimationEnded = useRef(false)
 	const { triviaQuery, apiError, trivia } = useTriviaRequest()
 
 	useEffect(() => {
-		setShowTopicAnimation(Boolean(triviaDialog.topic))
-	}, [triviaDialog.topic])
+		setShowIntroAnimation(triviaDialog.open)
+		introAnimationEnded.current = false
+	}, [triviaDialog.open])
 
-	const onClose = () => {
-		triviaDialog.setOpen(false)
+	const onIntroAnimationEnd = () => {
+		setShowIntroAnimation(false)
+		introAnimationEnded.current = true
 	}
+
+	console.log(introAnimationEnded.current)
 
 	const isError = Boolean(triviaQuery.error || apiError)
 
 	return (
-		<Modal isOpen={Boolean(triviaDialog.open)} onClose={onClose} closeOnEsc={false} closeOnOverlayClick={false}>
+		<Modal
+			isOpen={Boolean(triviaDialog.open)}
+			onClose={() => triviaDialog.setOpen(false)}
+			closeOnEsc={false}
+			closeOnOverlayClick={false}
+		>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalBody>
-					<TopicAnimation show={showTopicAnimation} onAnimationComplete={() => setShowTopicAnimation(false)} />
-					{!showTopicAnimation && (
+					{showIntroAnimation || !introAnimationEnded.current ? (
+						<TopicAnimation onAnimationComplete={onIntroAnimationEnd} />
+					) : (
 						<Stack w="full" alignItems="center" py={4}>
 							{triviaQuery.isFetching ? (
 								<Stack alignItems="center" p={4}>
