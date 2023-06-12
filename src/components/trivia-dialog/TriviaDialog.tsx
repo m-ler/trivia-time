@@ -24,8 +24,6 @@ const TriviaDialog = () => {
 		introAnimationEnded.current = true
 	}
 
-	console.log(introAnimationEnded.current)
-
 	const isError = Boolean(triviaQuery.error || apiError)
 
 	return (
