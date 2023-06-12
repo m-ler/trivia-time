@@ -18,7 +18,7 @@ const APIError = ({ errorCode }: Props) => {
 	}
 
 	return (
-		<Stack bg="red.500" rounded="3xl" p={6} spacing={1} w="full" mt="4 !important" alignItems="start">
+		<Stack bg="red.500" rounded="3xl" p={6} spacing={1} w="full" alignItems="start">
 			<Text color="white" fontWeight="bold" fontSize={22}>
 				Ooops!{' '}
 			</Text>
