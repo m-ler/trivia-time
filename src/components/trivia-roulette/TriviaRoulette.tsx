@@ -18,8 +18,8 @@ const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => voi
 	anime({
 		targets: ['#trivia-roulette-items'],
 		rotate: [0, rotation],
-		duration: 5000,
-		easing: 'easeOutExpo',
+		duration: 4000,
+		easing: 'easeOutQuart',
 		complete: onComplete,
 	})
 
@@ -28,8 +28,8 @@ const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => voi
 	anime({
 		targets: [ticks],
 		ticks: [0, (rotation / 360) * TRIVIA_TOPICS.length],
-		duration: 5000,
-		easing: 'easeOutExpo',
+		duration: 4000,
+		easing: 'easeOutQuart',
 		//round: 1,
 		update: () => {
 			const roundedTicks = Math.round(ticks.ticks)
@@ -54,7 +54,12 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 		const degrees = randomNumber(0, 360)
 		const topicIndex = Math.round(degrees / (360 / TRIVIA_TOPICS.length)) % TRIVIA_TOPICS.length
 		const topic = ROTATED_TRIVIA_TOPICS[topicIndex]
-		const onComplete = () => onSpinEnd(topic)
+		const onComplete = () => {
+			playSFX('click1')
+			setTimeout(() => {
+				onSpinEnd(topic)
+			}, 700)
+		}
 
 		onSpinStart(topic)
 		animateSpin(degrees, onComplete, () => playSFX('roulette_tick'))

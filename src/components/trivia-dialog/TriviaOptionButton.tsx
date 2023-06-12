@@ -11,7 +11,7 @@ type Props = {
 	onClick: (correct: boolean) => void
 }
 
-const animate = (buttonId: string, delay: number) => {
+const animate = (buttonId: string, delay: number, playSFX: () => void) => {
 	anime({
 		targets: [`#${buttonId}`],
 		scale: [0, 1],
@@ -19,6 +19,8 @@ const animate = (buttonId: string, delay: number) => {
 		easing: 'easeOutBack',
 		delay,
 	})
+
+	setTimeout(playSFX, delay)
 }
 
 const TriviaOptionButton = ({ text, correct, index, revealAnswer, onClick }: Props) => {
@@ -27,7 +29,7 @@ const TriviaOptionButton = ({ text, correct, index, revealAnswer, onClick }: Pro
 	const { playSFX } = useSFX()
 
 	useEffect(() => {
-		animate(buttonId, 300 * index)
+		animate(buttonId, 300 * index, () => playSFX('pop1'))
 	}, [])
 
 	const handleClick = () => {

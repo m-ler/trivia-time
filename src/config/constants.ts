@@ -15,4 +15,12 @@ export const TRIVIA_TOPICS_ICONS: { [key in (typeof TRIVIA_TOPICS)[number]]: Ico
 	Science: AiFillExperiment,
 }
 
-export const SFX_LIST = ['correct_answer', 'roulette_tick', 'topic_animation', 'trivia_start', 'wrong_answer'] as const
+export const SFX_LIST = [
+	'correct_answer',
+	'roulette_tick',
+	'topic_animation',
+	'trivia_start',
+	'wrong_answer',
+	'pop1',
+	'click1'
+] as const
