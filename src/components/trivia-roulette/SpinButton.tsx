@@ -2,11 +2,13 @@ import { Box } from '@chakra-ui/react'
 
 type Props = {
 	onClick: () => void
+	disabled: boolean
 }
 
-const SpinButton = ({ onClick }: Props) => {
+const SpinButton = ({ onClick, disabled }: Props) => {
 	return (
 		<Box
+			pointerEvents={disabled ? 'none' : 'all'}
 			as="button"
 			position="absolute"
 			inset="50%"
@@ -33,19 +35,8 @@ const SpinButton = ({ onClick }: Props) => {
 			}}
 		>
 			<>
-				<svg
-					width="100%"
-					height="100%"
-					viewBox="0 0 100 100"
-					preserveAspectRatio="xMinYMid meet"
-				>
-					<text
-						x="16"
-						y="62"
-						fontSize="28"
-						fontWeight={700}
-						fill="currentColor"
-					>
+				<svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMid meet">
+					<text x="16" y="62" fontSize="28" fontWeight={700} fill="currentColor" opacity={disabled ? '0.25' : '1'}>
 						SPIN
 					</text>
 				</svg>

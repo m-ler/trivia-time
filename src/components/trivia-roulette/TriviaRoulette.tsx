@@ -8,6 +8,7 @@ import { randomNumber } from '@/utils/math'
 import { TRIVIA_TOPICS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import { TriviaTopic } from '@/types'
 import useSFX from '@/hooks/useSFX'
+import { useState } from 'react'
 
 const SPIN_FORCE = 360 * 20
 const ROTATED_TRIVIA_TOPICS = [TRIVIA_TOPICS[0], ...TRIVIA_TOPICS.slice(1).reverse()]
@@ -49,8 +50,12 @@ type Props = {
 
 const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 	const { playSFX } = useSFX()
+	const [spinning, setSpinning] = useState(false)
 
 	const startTrivia = () => {
+		if (spinning) return
+
+		setSpinning(true)
 		const degrees = randomNumber(0, 360)
 		const topicIndex = Math.round(degrees / (360 / TRIVIA_TOPICS.length)) % TRIVIA_TOPICS.length
 		const topic = ROTATED_TRIVIA_TOPICS[topicIndex]
@@ -58,6 +63,7 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 			playSFX('click1')
 			setTimeout(() => {
 				onSpinEnd(topic)
+				setSpinning(false)
 			}, 700)
 		}
 
@@ -93,7 +99,7 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 
 			<Box position="absolute" inset="10px" borderRadius="50%" boxShadow="inset 0px 2px 10px rgba(0,30,20,0.35)"></Box>
 
-			<SpinButton onClick={startTrivia} />
+			<SpinButton onClick={startTrivia} disabled={spinning} />
 		</Box>
 	)
 }
