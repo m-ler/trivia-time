@@ -38,7 +38,7 @@ const Trivia = () => {
 	if (!topic || !trivia) return <></>
 
 	return (
-		<Stack maxW="full">
+		<Stack w="full" maxW="full">
 			<Stack bg={topic.toLowerCase()} p={6} borderRadius="lg" mb={4} alignItems="start">
 				<Stack w="full" direction="row" justifyContent="space-between" alignItems="flex-start">
 					<Stack direction="row" alignItems="center" borderRadius="md">
