@@ -1,9 +1,10 @@
 import { openaiAPI } from '@/lib/openai/api'
-import { TriviaAPIResponse, TriviaTopic } from '@/types'
+import { TriviaAPIResponse, TriviaObject, TriviaTopic } from '@/types'
 import jsonschema, { Schema } from 'jsonschema'
 import { topicList } from './topicList'
 import { randomNumber } from '@/utils/math'
 import { humanRoles } from './humanRoles'
+import { TRIVIA_OPTIONS } from '@/config/constants'
 
 const JSONSchemaValidator = new jsonschema.Validator()
 
@@ -19,15 +20,23 @@ const triviaSchema: Schema = {
 	},
 }
 
-const validateTriviaSchema = (triviaJSON: string) => {
+const validateTrivia = (triviaJSON: string) => {
 	try {
 		JSON.parse(triviaJSON)
 	} catch (e) {
 		return false
 	}
 
-	const { valid } = JSONSchemaValidator.validate(JSON.parse(triviaJSON), triviaSchema)
-	return valid
+	const validSchema = JSONSchemaValidator.validate(JSON.parse(triviaJSON), triviaSchema).valid
+	if (validSchema) {
+		const isWhitespaceOrEmpty = /^\s*$/
+		const trivia: TriviaObject = JSON.parse(triviaJSON)
+		const validStrings = Object.values(trivia).every((x) => !isWhitespaceOrEmpty.test(x))
+		const validAnswer = TRIVIA_OPTIONS.some((x) => x === trivia.correct)
+		return validStrings && validAnswer
+	}
+
+	return false
 }
 
 const triviaSchemaPromptExample = '{trivia: "question", a: "", b: "", c: "", d: "", correct: "a, b, c or d"}'
@@ -69,11 +78,11 @@ export const generateTrivia = async (topic: TriviaTopic) => {
 
 	for (let i = 0; i < attempts; i++) {
 		result = await getTrivia(topic)
-		const tryAgain = !validateTriviaSchema(result.trivia || '') && !result.error
+		const tryAgain = !validateTrivia(result.trivia || '') && !result.error
 		if (!tryAgain) break
 	}
 
-	result.error = Boolean(result.error) || !Boolean(result.trivia)
+	result.error = Boolean(result.error) || !validateTrivia(result.trivia || '')
 
 	return result
 }
