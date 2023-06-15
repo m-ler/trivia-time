@@ -52,6 +52,11 @@ type APIError = {
 
 const getTrivia = async (topic: TriviaTopic) => {
 	const triviaResponse: TriviaAPIResponse = {}
+	const test =
+		'{\n"trivia": "Which continent is also known as the \'Dark Continent\'?",\n"a": "Africa",\n"b": "ESPAÑAAA",\n"c": "South America",\n"d": "Australia",\n"correct": "d"\n}'
+
+	triviaResponse.trivia = test
+	return triviaResponse
 
 	try {
 		const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()
@@ -79,6 +84,8 @@ export const generateTrivia = async (topic: TriviaTopic) => {
 	for (let i = 0; i < attempts; i++) {
 		result = await getTrivia(topic)
 		const tryAgain = !validateTrivia(result.trivia || '') && !result.error
+		console.log(`ATTEMPT: ${i} - Valid: ${!tryAgain} `)
+
 		if (!tryAgain) break
 	}
 

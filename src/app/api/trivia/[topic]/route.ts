@@ -10,7 +10,7 @@ type Params = {
 
 export const GET = async (req: NextRequest, { params }: Params) => {
 	const topic = params.topic as TriviaTopic
-	await new Promise((resolve) => setTimeout(resolve, 3000))
+	//await new Promise((resolve) => setTimeout(resolve, 3000))
 	const response = await generateTrivia(topic || 'Entertainment')
 
 	return NextResponse.json({ ...response })
