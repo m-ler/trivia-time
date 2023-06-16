@@ -28,7 +28,9 @@ const Header = () => {
 								</Link>
 							</Center>
 						</Flex>
-						<Button colorScheme="primary">Login</Button>
+						<Link as={NextLink} href="signin">
+							<Button colorScheme="primary">Login</Button>
+						</Link>
 					</Flex>
 				</Center>
 			</Flex>
