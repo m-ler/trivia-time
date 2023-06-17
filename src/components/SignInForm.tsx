@@ -3,7 +3,7 @@ import { Link as NextLink } from '@chakra-ui/next-js'
 import { Button, Container, Input, InputGroup, Stack, Link, Text, Flex } from '@chakra-ui/react'
 
 const SignInForm = () => {
-	return (
+	return ( 
 		<Container maxWidth="lg">
 			<Flex direction="column" bgColor="white" borderRadius="lg" p={4} mt={4}>
 				<Text mb={4} fontWeight="bold" fontSize={22}>
