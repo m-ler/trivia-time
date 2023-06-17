@@ -1,7 +1,7 @@
 import SignInForm from '@/components/SignInForm'
 
 export const metadata = {
-	title: 'Sign in | Trivia Time!',
+	title: 'Sign In | Trivia Time!',
 }
 
 const Leaderboard = () => {

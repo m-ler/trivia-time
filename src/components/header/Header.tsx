@@ -1,9 +1,14 @@
 'use client'
 
-import { Button, Center, Flex, Link, Slide } from '@chakra-ui/react'
+import { Center, Flex, Link, Slide } from '@chakra-ui/react'
 import { Image, Link as NextLink } from '@chakra-ui/next-js'
+import { useSession } from 'next-auth/react'
+import AuthButtons from './AuthButtons'
+import UserAvatar from './UserAvatar'
 
 const Header = () => {
+	const { data: session } = useSession()
+
 	return (
 		<Slide direction="top" in style={{ position: 'static' }}>
 			<Flex as="header" bg="secondary.700" px={4} py={3}>
@@ -28,9 +33,7 @@ const Header = () => {
 								</Link>
 							</Center>
 						</Flex>
-						<Link as={NextLink} href="signin">
-							<Button colorScheme="primary">Login</Button>
-						</Link>
+						{session ? <UserAvatar /> : <AuthButtons />}
 					</Flex>
 				</Center>
 			</Flex>
