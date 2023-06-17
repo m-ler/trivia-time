@@ -1,5 +1,5 @@
 'use client'
-import SignUpForm from '@/components/SignUpForm'
+import SignUpForm from '@/components/auth/SignUpForm'
 import { Box, Container, Flex, Stack, Text } from '@chakra-ui/react'
 
 const SignUp = () => {

@@ -83,7 +83,7 @@ const Trivia = () => {
 				/>
 			))}
 			{revealAnswer && (
-				<Button onClick={() => setOpen(false)} ml="auto !important" mt="2rem !important" colorScheme="secondary">
+				<Button onClick={() => setOpen(false)} ml="auto !important" mt="2rem !important" colorScheme="blue">
 					Continue
 				</Button>
 			)}

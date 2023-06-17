@@ -8,10 +8,10 @@ const UserAvatar = () => {
 
 	return (
 		<Flex alignItems="center" gap={4}>
-			<Button colorScheme="primary" variant="ghost" onClick={() => signOut()}>
+			<Button colorScheme="yellow" variant="ghost" color="yellow.400" onClick={() => signOut()}>
 				Sign out
 			</Button>
-			<Avatar name={user.name || ''} src={user.image || ''} />
+			<Avatar name={user.name || ''} src={user.image || ''} referrerPolicy="no-referrer" />
 		</Flex>
 	)
 }

@@ -23,7 +23,7 @@ const MainMenu = () => {
 
 	return (
 		<Box as="main" width="100%" px={4} py={8}>
-			<Container maxW="6xl" width="100%" bg="white" borderRadius="2xl" py={4}>
+			<Container maxW="6xl" width="100%" bg="white" borderRadius="3xl" py={4}>
 				<Center>
 					<TriviaRoulette onSpinStart={onSpinStart} onSpinEnd={onSpinEnd} />
 				</Center>

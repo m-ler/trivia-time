@@ -22,7 +22,7 @@ const SignInForm = () => {
 					</Link>
 				</Stack>
 
-				<Button colorScheme="primary" mt={4} ml="auto">
+				<Button colorScheme="yellow" mt={4} ml="auto">
 					Sign In
 				</Button>
 			</Flex>

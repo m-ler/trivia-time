@@ -79,8 +79,8 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 			overflow="hidden"
 			border="6px solid"
 			boxSizing="content-box"
-			borderColor="gray.400"
-			w={300}
+			borderColor="blue.500"
+			w={340}
 			aspectRatio="1/1"
 		>
 			<Box

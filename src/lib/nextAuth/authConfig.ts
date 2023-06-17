@@ -17,8 +17,7 @@ const authConfig = {
 		}),
 	],
 	pages: {
-		signIn: 'http://localhost:3000/signin',
-		newUser: 'http://localhost:3000/signup',
+		signIn: `${process.env.NEXTAUTH_URL}/signin`,
 	},
 }
 

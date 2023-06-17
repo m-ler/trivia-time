@@ -1,4 +1,4 @@
-import SignInForm from '@/components/SignInForm'
+import SignInForm from '@/components/auth/SignInForm'
 
 export const metadata = {
 	title: 'Sign In | Trivia Time!',

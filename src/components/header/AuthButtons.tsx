@@ -1,20 +1,20 @@
-import { Box, Button, Link } from '@chakra-ui/react'
+import { Stack, Button, Link } from '@chakra-ui/react'
 import { Link as NextLink } from '@chakra-ui/next-js'
 
 const AuthButtons = () => {
 	return (
-		<Box>
+		<Stack direction="row" alignItems="center" wrap="nowrap">
 			<Link as={NextLink} href="signin">
-				<Button colorScheme="primary" variant="ghost">
+				<Button colorScheme="yellow" variant="ghost" color="yellow.400">
 					Log in
 				</Button>
 			</Link>
 			<Link as={NextLink} href="signup">
-				<Button colorScheme="primary" ml={2}>
+				<Button colorScheme="yellow" variant="solid" ml={2}>
 					Sign up
 				</Button>
 			</Link>
-		</Box>
+		</Stack>
 	)
 }
 

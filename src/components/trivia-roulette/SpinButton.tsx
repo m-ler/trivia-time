@@ -28,7 +28,7 @@ const SpinButton = ({ onClick, disabled }: Props) => {
 			transitionDuration="200ms"
 			sx={{
 				'&:hover': {
-					bgColor: 'primary.500',
+					bgColor: 'white',
 					color: 'gray.900',
 					transform: 'translate(-50%, -50%) scale(1.1)',
 				},
