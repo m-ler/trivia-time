@@ -57,8 +57,10 @@ model VerificationToken {
 }
 
 model Profile {
-  userId    String   @id
-  user      User     @relation(fields: [userId], references: [id])
-  score     Int      @default(0)
-  createdAt DateTime @default(now())
+  userId        String   @id
+  user          User     @relation(fields: [userId], references: [id])
+  score         Int      @default(0)
+  negativeScore Int      @default(0)
+  createdAt     DateTime @default(now())
+  customImage   String?
 }
