@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   profile       Profile?
+  password      String?   @default("")
 }
 
 model VerificationToken {
