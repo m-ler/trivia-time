@@ -1,4 +1,4 @@
-import { Avatar, Flex, Button } from '@chakra-ui/react'
+import { Avatar, Flex, Button, Box } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 
 const UserAvatar = () => {
@@ -11,7 +11,9 @@ const UserAvatar = () => {
 			<Button colorScheme="yellow" variant="ghost" color="yellow.400" onClick={() => signOut()}>
 				Sign out
 			</Button>
-			<Avatar name={user.name || ''} src={user.image || ''} referrerPolicy="no-referrer" />
+			<Box rounded="full" p={1} bg="white">
+				<Avatar name={user.name || ''} src={user.image || ''} size="sm" referrerPolicy="no-referrer" />
+			</Box>
 		</Flex>
 	)
 }

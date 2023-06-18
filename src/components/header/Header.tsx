@@ -14,7 +14,7 @@ const Header = () => {
 			<Center w="100%">
 				<Flex width="100%" maxW="6xl" justifyContent="space-between" alignItems="center">
 					<Flex alignItems="center" rounded="2xl" bg="white" px={4} py={2}>
-						<Link as={NextLink} href="/">
+						<Link as={NextLink} href="/" flexShrink={0}>
 							<Image
 								width={34}
 								height={34}

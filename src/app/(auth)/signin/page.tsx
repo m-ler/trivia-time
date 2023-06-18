@@ -1,15 +1,19 @@
-import SignInForm from '@/components/auth/SignInForm'
+import { getServerSession } from 'next-auth'
+import SignIn from './SingIn'
+import { redirect } from 'next/navigation'
+import authConfig from '@/lib/nextAuth/authConfig'
 
 export const metadata = {
 	title: 'Sign In | Trivia Time!',
 }
 
-const Leaderboard = () => {
-	return (
-		<>
-			<SignInForm />
-		</>
-	)
+const Page = async () => {
+	const session = await getServerSession(authConfig)
+
+	if (session) {
+		redirect('/')
+	}
+	return <SignIn />
 }
 
-export default Leaderboard
+export default Page
