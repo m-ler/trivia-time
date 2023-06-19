@@ -32,10 +32,6 @@ const authConfig: NextAuthOptions = {
 				const user = await prisma.user.findUnique({ where: { email: email || '' } })
 				const correctPassword = await compare(password, user?.password || '')
 
-				console.log('user', Boolean(user))
-				console.log('password', Boolean(email))
-				console.log('schema', schemaValidation.success)
-
 				if (!user || !correctPassword || !schemaValidation.success) {
 					throw new Error('Your email or password was incorrect. Please double-check your credentials.')
 				}

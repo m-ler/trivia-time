@@ -3,6 +3,7 @@ import transporter from '@/config/mailer'
 import { prisma } from '@/lib/prisma/client'
 import { render } from '@react-email/render'
 import { NextRequest, NextResponse } from 'next/server'
+import jwt from 'jsonwebtoken'
 
 type Params = {
 	email: string
@@ -20,7 +21,10 @@ export const POST = async (req: NextRequest) => {
 	}
 
 	try {
-		const html = render(<ResetPasswordTemplate userName={user.name || ''} resetLink="https://www.google.com" />)
+		const secret = process.env.NEXTAUTH_SECRET || ''
+		const token = jwt.sign({ email }, secret, { expiresIn: 60 * 15 })
+		const resetLink = `${process.env.NEXTAUTH_URL || ''}/reset-password?token=${token}`
+		const html = render(<ResetPasswordTemplate userName={user.name || ''} resetLink={resetLink} />)
 
 		transporter.sendMail({
 			from: 'mler.developer@gmail.com',

@@ -1,10 +1,10 @@
 import { getServerSession } from 'next-auth'
-import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 import authConfig from '@/lib/nextAuth/authConfig'
 import { redirect } from 'next/navigation'
 
 export const metadata = {
-	title: 'Forgot password',
+	title: 'Reset password',
 }
 
 const Page = async () => {
@@ -14,7 +14,7 @@ const Page = async () => {
 		redirect('/')
 	}
 
-	return <ForgotPassword />
+	return <ResetPassword />
 }
 
 export default Page
