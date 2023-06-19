@@ -8,7 +8,6 @@ import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { triviaDialogState } from '@/store/trivia-dialog'
 
 const MainMenu = () => {
-	//const [ setTriviaTopic] = useState<TriviaTopic | null>(null)
 	const triviaDialog = triviaDialogState((state) => state)
 	const { requestTrivia } = useTriviaRequest()
 

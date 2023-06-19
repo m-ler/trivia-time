@@ -22,11 +22,6 @@ const SignUpForm = () => {
 		}
 	)
 
-	//const signUpErrorr = registerUserMutation.data.
-
-	console.log(signUpMutation)
-	console.log(signUpMutation.error?.response?.data)
-
 	const {
 		register,
 		handleSubmit,

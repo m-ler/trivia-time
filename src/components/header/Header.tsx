@@ -7,7 +7,7 @@ import AuthButtons from './AuthButtons'
 import UserAvatar from './UserAvatar'
 
 const Header = () => {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 
 	return (
 		<Flex as="header" px={4} py={3}>
@@ -28,7 +28,7 @@ const Header = () => {
 							Leaderboard
 						</Link>
 					</Flex>
-					{session ? <UserAvatar /> : <AuthButtons />}
+					{status === 'loading' ? <></> : session ? <UserAvatar /> : <AuthButtons />}
 				</Flex>
 			</Center>
 		</Flex>
