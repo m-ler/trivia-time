@@ -70,11 +70,11 @@ const SignInForm = () => {
 					</FormControl>
 				</Stack>
 
-				<Link as={NextLink} href="/" fontSize={12} mt={2}>
+				<Link as={NextLink} href="/reset-password" fontSize={12} mt={2}>
 					Forgot password?
 				</Link>
 
-				<Button type="submit" colorScheme="yellow" mt={4} ml="auto" isLoading={signInMutation.isLoading}>
+				<Button type="submit" colorScheme="yellow" mt={4} mr="auto" isLoading={signInMutation.isLoading}>
 					Sign In
 				</Button>
 
