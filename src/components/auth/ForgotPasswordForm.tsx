@@ -1,10 +1,11 @@
 'use client'
 
-import { Flex, FormControl, FormErrorMessage, Input, Stack, Button } from '@chakra-ui/react'
+import { Flex, FormControl, FormErrorMessage, Input, Stack, Button, Text } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useMutation } from 'react-query'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 
 const formSchema = z.object({
 	email: z.string().email({ message: 'Invalid email address' }),
@@ -20,8 +21,11 @@ const ForgotPasswordForm = () => {
 		resolver: zodResolver(formSchema),
 	})
 
-	const resetRequestMutation = useMutation(async () => {
-		//
+	const resetRequestMutation = useMutation<AxiosResponse<string>, AxiosError>(async () => {
+		const email = getValues('email')
+		return axios.post('api/password-recovery/send-link', {
+			email,
+		})
 	})
 
 	const onSubmit = handleSubmit(async () => {
@@ -46,9 +50,13 @@ const ForgotPasswordForm = () => {
 
 				<FormControl isInvalid>
 					<FormErrorMessage mt={1} fontSize={14} fontWeight="semibold">
-						{((resetRequestMutation.data as unknown as string) && resetRequestMutation.data) || ''}
+						{resetRequestMutation.error && (resetRequestMutation.error?.response?.data as string)}
 					</FormErrorMessage>
 				</FormControl>
+
+				<Text fontSize={14} fontWeight="semibold" color="green.400" hidden={!resetRequestMutation.data?.data}>
+					{resetRequestMutation?.data?.data || ''}
+				</Text>
 			</Flex>
 		</form>
 	)
