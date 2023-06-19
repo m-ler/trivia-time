@@ -70,7 +70,7 @@ const SignInForm = () => {
 					</FormControl>
 				</Stack>
 
-				<Link as={NextLink} href="/reset-password" fontSize={12} mt={2}>
+				<Link as={NextLink} href="/forgot-password" fontSize={12} mt={2}>
 					Forgot password?
 				</Link>
 
