@@ -37,8 +37,8 @@ const SignUpForm = () => {
 	return (
 		<form onSubmit={onSubmit}>
 			<Flex direction="column" gap={2}>
-				<ProviderAuthButton provider="google" newUser />
-				<ProviderAuthButton provider="github" newUser />
+				<ProviderAuthButton provider="google" />
+				<ProviderAuthButton provider="github" />
 
 				<Stack direction="row" alignItems="center" gap={2} my={4}>
 					<Divider borderColor="gray.400" />
