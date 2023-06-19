@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth'
-import SignIn from './SingIn'
+import SignIn from './SignIn'
 import { redirect } from 'next/navigation'
 import authConfig from '@/lib/nextAuth/authConfig'
 
