@@ -45,6 +45,27 @@ const authConfig: NextAuthOptions = {
 		signIn: `${NEXTAUTH_URL}/signin`,
 	},
 	callbacks: {
+		signIn: async ({ user }) => {
+			const { email } = user
+			if (!email) return false
+
+			const userData = await prisma.user.findUnique({
+				where: {
+					email,
+				},
+				include: {
+					profile: true,
+				},
+			})
+
+			if (!userData?.profile && userData?.id) {
+				await prisma.profile.create({ data: { userId: userData.id } })
+			}
+
+			console.log(userData?.profile)
+
+			return true
+		},
 		session({ session, token }) {
 			session.user.id = token.id
 			return session
