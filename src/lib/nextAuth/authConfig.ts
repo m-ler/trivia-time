@@ -8,17 +8,18 @@ import { compare } from 'bcrypt'
 import signInSchema from '../zod/signInSchema'
 import { z } from 'zod'
 import { NextAuthOptions } from 'next-auth'
+import { GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET, NEXTAUTH_SECRET, NEXTAUTH_URL } from '@/config'
 
 const authConfig: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma) as Adapter,
 	providers: [
 		GoogleProvider({
-			clientId: process.env.GOOGLE_ID || '',
-			clientSecret: process.env.GOOGLE_SECRET || '',
+			clientId: GOOGLE_ID,
+			clientSecret: GOOGLE_SECRET,
 		}),
 		GithubProvider({
-			clientId: process.env.GITHUB_ID || '',
-			clientSecret: process.env.GITHUB_SECRET || '',
+			clientId: GITHUB_ID,
+			clientSecret: GITHUB_SECRET,
 		}),
 		CredentialsProvider({
 			type: 'credentials',
@@ -41,7 +42,7 @@ const authConfig: NextAuthOptions = {
 		}),
 	],
 	pages: {
-		signIn: `${process.env.NEXTAUTH_URL}/signin`,
+		signIn: `${NEXTAUTH_URL}/signin`,
 	},
 	callbacks: {
 		session({ session, token }) {
@@ -60,7 +61,7 @@ const authConfig: NextAuthOptions = {
 	session: {
 		strategy: 'jwt',
 	},
-	secret: process.env.NEXTAUTH_SECRET,
+	secret: NEXTAUTH_SECRET,
 }
 
 export default authConfig

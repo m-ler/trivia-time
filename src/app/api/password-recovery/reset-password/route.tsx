@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 import { prisma } from '@/lib/prisma/client'
 import { hash } from 'bcrypt'
+import { NEXTAUTH_SECRET } from '@/config'
 
 type Params = {
 	newPassword: string
@@ -19,8 +20,7 @@ export const POST = async (req: NextRequest) => {
 	let email = ''
 
 	try {
-		const secret = process.env.NEXTAUTH_SECRET || ''
-		const decoded = jwt.verify(token, secret) as Token
+		const decoded = jwt.verify(token, NEXTAUTH_SECRET) as Token
 		email = decoded.email
 	} catch (err) {
 		return new NextResponse('Reset password link expired or is not valid', {
