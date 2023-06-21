@@ -8,27 +8,34 @@ import signUpSchema from '@/lib/zod/signUpSchema'
 import axios, { AxiosError } from 'axios'
 import { useMutation } from 'react-query'
 import { NextResponse } from 'next/server'
+import { signIn } from 'next-auth/react'
 
 const SignUpForm = () => {
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		formState: { errors },
+	} = useForm<z.infer<typeof signUpSchema>>({
+		resolver: zodResolver(signUpSchema),
+	})
+
 	const signUpMutation = useMutation<unknown, AxiosError, string>(
 		async (data: string) => {
 			const response = axios.post<NextResponse>('api/signup', data)
 			return (await response).data
 		},
 		{
-			onSuccess: (data) => {
-				console.log(data)
+			onSuccess: () => {
+				signIn('credentials', {
+					redirect: true,
+					email: getValues('email'),
+					password: getValues('password'),
+					callbackUrl: '/',
+				})
 			},
 		}
 	)
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<z.infer<typeof signUpSchema>>({
-		resolver: zodResolver(signUpSchema),
-	})
 
 	const onSubmit = handleSubmit((data) => {
 		signUpMutation.mutate(JSON.stringify(data))
