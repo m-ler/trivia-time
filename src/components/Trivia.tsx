@@ -1,6 +1,6 @@
 import { TRIVIA_OPTIONS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
-import { Button, Icon, Progress, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, Icon, Progress, Stack, Text } from '@chakra-ui/react'
 import TriviaOptionButton from './trivia-dialog/TriviaOptionButton'
 import { triviaDialogState } from '@/store/trivia-dialog'
 import { useEffect, useRef, useState } from 'react'
@@ -46,7 +46,7 @@ const Trivia = () => {
 	if (!topic || !trivia) return <></>
 
 	return (
-		<Stack w="full" maxW="full">
+		<Flex w="full" maxW="full" direction="column" gap={2}>
 			<Stack bg={topic.toLowerCase()} p={6} borderRadius="lg" mb={4} alignItems="start">
 				<Stack w="full" direction="row" justifyContent="space-between" alignItems="flex-start">
 					<Stack direction="row" alignItems="center" borderRadius="md">
@@ -56,7 +56,7 @@ const Trivia = () => {
 						</Text>
 					</Stack>
 					<Text color="white" fontWeight="black" hidden={revealAnswer}>
-						{seconds }
+						{seconds}
 					</Text>
 				</Stack>
 
@@ -83,11 +83,11 @@ const Trivia = () => {
 				/>
 			))}
 			{revealAnswer && (
-				<Button onClick={() => setOpen(false)} ml="auto !important" mt="2rem !important" colorScheme="blue">
+				<Button onClick={() => setOpen(false)} ml="auto" mt={6} colorScheme="blue">
 					Continue
 				</Button>
 			)}
-		</Stack>
+		</Flex>
 	)
 }
 

@@ -1,6 +1,6 @@
 import { getErrorMessages } from '@/lib/openai/errors'
 import { triviaDialogState } from '@/store/trivia-dialog'
-import { Button, List, ListIcon, ListItem, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, List, ListIcon, ListItem, Text } from '@chakra-ui/react'
 import { MdCancel } from 'react-icons/md'
 
 type Props = {
@@ -18,7 +18,7 @@ const APIError = ({ errorCode }: Props) => {
 	}
 
 	return (
-		<Stack bg="red.500" rounded="3xl" p={6} spacing={1} w="full" alignItems="start">
+		<Flex bg="red.500" rounded="3xl" p={6} gap={1} w="full" alignItems="start" direction="column">
 			<Text color="white" fontWeight="bold" fontSize={22}>
 				Ooops!{' '}
 			</Text>
@@ -32,9 +32,9 @@ const APIError = ({ errorCode }: Props) => {
 						An error occurred due to one of the following reasons:
 					</Text>
 
-					<List spacing={3} mt="1rem !important">
+					<List spacing={3} mt={2}>
 						{errorMessages.map((error) => (
-							<ListItem key={error} mt="0.5rem !important" display="flex" flexDirection="row">
+							<ListItem key={error} mt={1} display="flex" flexDirection="row">
 								<ListIcon as={MdCancel} color="whiteAlpha.600" boxSize="20px" />
 								<Text color="whiteAlpha.600" fontWeight="medium" fontSize={18} lineHeight="5">
 									{error}
@@ -44,10 +44,10 @@ const APIError = ({ errorCode }: Props) => {
 					</List>
 				</>
 			)}
-			<Button mt="1.5rem !important" rounded="full" onClick={onClose}>
+			<Button mt={6} rounded="full" onClick={onClose}>
 				Close
 			</Button>
-		</Stack>
+		</Flex>
 	)
 }
 
