@@ -15,7 +15,6 @@
 		"@emotion/react": "^11.11.0",
 		"@emotion/styled": "^11.11.0",
 		"@hookform/resolvers": "^3.1.1",
-		"@prisma/client": "^4.15.0",
 		"@react-email/button": "^0.0.9",
 		"@react-email/html": "^0.0.4",
 		"@react-email/render": "0.0.7",
@@ -44,6 +43,7 @@
 		"zustand": "^4.3.8"
 	},
 	"devDependencies": {
+		"@prisma/client": "^4.16.0",
 		"@types/animejs": "^3.1.7",
 		"@types/bcrypt": "^5.0.0",
 		"@types/node": "20.2.5",
@@ -52,6 +52,6 @@
 		"@types/react-dom": "18.2.4",
 		"@typescript-eslint/eslint-plugin": "^5.59.7",
 		"eslint-config-prettier": "^8.8.0",
-		"prisma": "^4.15.0"
+		"prisma": "^4.16.0"
 	}
 }
