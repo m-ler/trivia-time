@@ -62,8 +62,6 @@ const authConfig: NextAuthOptions = {
 				await prisma.profile.create({ data: { userId: userData.id } })
 			}
 
-			console.log(userData?.profile)
-
 			return true
 		},
 		session({ session, token }) {

@@ -2,6 +2,10 @@ import Background from '@/components/theme/Background'
 import Providers from '@/config/Providers'
 import { PropsWithChildren } from 'react'
 
+export const metadata = {
+	referrer: 'no-referrer',
+}
+
 const RootLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<html lang="en">
