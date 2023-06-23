@@ -1,13 +1,13 @@
 'use client'
 
-import { Box, Center, Container } from '@chakra-ui/react'
-import TriviaRoulette from './trivia-roulette'
-import TriviaDialog from './trivia-dialog'
-import { TriviaTopic } from '@/types'
+import TriviaDialog from '@/components/trivia-dialog'
+import TriviaRoulette from '@/components/trivia-roulette'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { triviaDialogState } from '@/store/trivia-dialog'
+import { TriviaTopic } from '@/types'
+import { Box, Center, Container } from '@chakra-ui/react'
 
-const MainMenu = () => {
+const Play = () => {
 	const triviaDialog = triviaDialogState((state) => state)
 	const { requestTrivia } = useTriviaRequest()
 
@@ -32,4 +32,4 @@ const MainMenu = () => {
 	)
 }
 
-export default MainMenu
+export default Play
