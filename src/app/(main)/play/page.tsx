@@ -1,11 +1,9 @@
-import Home from './Home'
-
 export const metadata = {
-	title: 'Trivia Time!',
+	title: 'Play | Trivia Time!',
 }
 
 const Page = () => {
-	return <Home />
+	return <></>
 }
 
 export default Page
