@@ -1,13 +1,16 @@
 'use client'
 
-import { Box, Center, Flex, Link } from '@chakra-ui/react'
+import { Box, Center, Flex, IconButton, Link, Tooltip } from '@chakra-ui/react'
 import { Image, Link as NextLink } from '@chakra-ui/next-js'
 import { useSession } from 'next-auth/react'
 import AuthButtons from './AuthButtons'
 import UserAvatar from './UserAvatar'
+import { MdSettings } from 'react-icons/md'
+import { settingsDialogState } from '@/store/settings-dialog'
 
 const Header = () => {
 	const { data: session, status } = useSession()
+	const { setOpen: setSettingsDialogOpen } = settingsDialogState((state) => state)
 
 	return (
 		<Flex as="header" px={4} py={3}>
@@ -32,6 +35,11 @@ const Header = () => {
 						<Link as={NextLink} href="/leaderboard" fontSize={14} fontWeight="semibold">
 							Leaderboard
 						</Link>
+						<Tooltip label="Settings" hasArrow>
+							<IconButton aria-label="Settings" color="blue.400" onClick={() => setSettingsDialogOpen(true)}>
+								<MdSettings size={20} />
+							</IconButton>
+						</Tooltip>
 					</Flex>
 					{status === 'loading' ? <></> : session ? <UserAvatar /> : <AuthButtons />}
 				</Flex>
