@@ -22,7 +22,7 @@ const SettingsDialog = () => {
 	const { key, setKey } = userKeyState((state) => state)
 
 	return (
-		<Modal isOpen={open} onClose={() => setOpen(false)}>
+		<Modal isOpen={open} onClose={() => setOpen(false)} autoFocus={false}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalBody>
