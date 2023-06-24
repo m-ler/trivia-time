@@ -8,10 +8,16 @@ type Params = {
 	}
 }
 
-export const GET = async (req: NextRequest, { params }: Params) => {
+type BodyParams = {
+	apiKey: string
+}
+
+export const POST = async (req: NextRequest, { params }: Params) => {
 	const topic = params.topic as TriviaTopic
+	const body: BodyParams = await req.json()
+	const { apiKey } = body
 	//await new Promise((resolve) => setTimeout(resolve, 3000))
-	const response = await generateTrivia(topic || 'Entertainment')
+	const response = await generateTrivia(topic || 'Entertainment', apiKey)
 
 	return NextResponse.json({ ...response })
 }

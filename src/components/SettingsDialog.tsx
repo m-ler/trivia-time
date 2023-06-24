@@ -1,5 +1,6 @@
 'use client'
 import { settingsDialogState } from '@/store/settings-dialog'
+import { userKeyState } from '@/store/user-key'
 import {
 	FormControl,
 	FormHelperText,
@@ -18,6 +19,7 @@ import { MdKey } from 'react-icons/md'
 
 const SettingsDialog = () => {
 	const { open, setOpen } = settingsDialogState((state) => state)
+	const { key, setKey } = userKeyState((state) => state)
 
 	return (
 		<Modal isOpen={open} onClose={() => setOpen(false)}>
@@ -31,7 +33,7 @@ const SettingsDialog = () => {
 								<InputLeftAddon>
 									<MdKey />
 								</InputLeftAddon>
-								<Input type="text" />
+								<Input type="text" defaultValue={key} onBlur={(e) => setKey(e.target.value)} />
 							</InputGroup>
 
 							<FormHelperText>

@@ -50,20 +50,20 @@ type APIError = {
 	}
 }
 
-const getTrivia = async (topic: TriviaTopic) => {
+const getTrivia = async (topic: TriviaTopic, apiKey: string) => {
 	const triviaResponse: TriviaAPIResponse = {}
-	const test =
+	/* const test =
 		'{\n"trivia": "Which continent is also known as the \'Dark Continent\'?",\n"a": "Africa",\n"b": "ESPAÑAAA",\n"c": "South America",\n"d": "Australia",\n"correct": "d"\n}'
 
 	triviaResponse.trivia = test
 	return triviaResponse
-
+ */
 	try {
 		const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()
 		const role = humanRoles[randomNumber(0, humanRoles.length - 1)].toLowerCase()
 		const prompt = createPrompt(subtopic, role)
 
-		const response = await openaiAPI.createChatCompletion({
+		const response = await openaiAPI(apiKey).createChatCompletion({
 			model: 'gpt-3.5-turbo',
 			messages: [{ role: 'user', content: prompt }],
 		})
@@ -77,15 +77,13 @@ const getTrivia = async (topic: TriviaTopic) => {
 	}
 }
 
-export const generateTrivia = async (topic: TriviaTopic) => {
+export const generateTrivia = async (topic: TriviaTopic, apiKey: string) => {
 	let result: TriviaAPIResponse = {}
 	const attempts = 3
 
 	for (let i = 0; i < attempts; i++) {
-		result = await getTrivia(topic)
+		result = await getTrivia(topic, apiKey)
 		const tryAgain = !validateTrivia(result.trivia || '') && !result.error
-		console.log(`ATTEMPT: ${i} - Valid: ${!tryAgain} `)
-
 		if (!tryAgain) break
 	}
 

@@ -1,6 +1,6 @@
 const errorMessages: { [key: string]: string[] } = {
 	'401': [
-		'Invalid Authentication',
+		'Invalid authentication',
 		'Incorrect API key provided',
 		'You must be a member of an organization to use the API',
 	],
