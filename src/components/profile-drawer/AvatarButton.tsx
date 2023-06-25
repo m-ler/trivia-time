@@ -1,7 +1,7 @@
 'use client'
 import useRemoveAvatar from '@/hooks/user/useRemoveAvatar'
 import useUpdateAvatar from '@/hooks/user/useUpdateAvatar'
-import { Avatar, Box, Center, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Center, Flex, Menu, MenuButton, MenuItem, MenuList, Spinner, useToast } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { ChangeEvent, useRef } from 'react'
 import { MdOutlineCameraAlt, MdOutlineModeEditOutline, MdRemoveCircleOutline } from 'react-icons/md'
@@ -10,8 +10,8 @@ const AvatarButton = () => {
 	const user = useSession().data?.user
 	const toast = useToast()
 	const inputFileRef = useRef<HTMLInputElement | null>(null)
-	const { updateAvatar } = useUpdateAvatar()
-	const { removeAvatar } = useRemoveAvatar()
+	const { updateAvatar, loading: updatingAvatar } = useUpdateAvatar()
+	const { removeAvatar, loading: removingAvatar } = useRemoveAvatar()
 
 	const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e?.target?.files?.[0]
@@ -27,11 +27,14 @@ const AvatarButton = () => {
 
 		updateAvatar(file)
 	}
+
+	const loading = updatingAvatar || removingAvatar
 	const avatarSrc = user?.profile.customImage || user?.image || ''
 
 	return (
 		<Menu placement="bottom">
 			<MenuButton
+				disabled={loading}
 				position="absolute"
 				top={0}
 				left="50%"
@@ -41,7 +44,7 @@ const AvatarButton = () => {
 						opacity: 0,
 					},
 				}}
-				_hover={{ '& #edit-icon': { opacity: 1 } }}
+				_hover={{ '& #edit-icon': { opacity: loading ? 0 : 1 } }}
 			>
 				<Avatar
 					key={avatarSrc}
@@ -65,6 +68,9 @@ const AvatarButton = () => {
 						</Center>
 					</Box>
 				</Avatar>
+				<Flex position="absolute" inset={0} bg="blackAlpha.700" rounded="full" hidden={!loading}>
+					<Spinner m="auto" color="white" size="lg" thickness="4px" speed="1000ms" />
+				</Flex>
 			</MenuButton>
 
 			<MenuList>
