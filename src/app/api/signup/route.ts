@@ -9,7 +9,7 @@ export const POST = async (req: NextRequest) => {
 	const schemaValidation = signUpSchema.safeParse(userData)
 
 	if (!schemaValidation.success) {
-		return new NextResponse('Form has invalid values', {
+		return new NextResponse('Form has invalid values.', {
 			status: 400,
 		})
 	}
@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
 	})
 
 	if (userAlreadyRegistered) {
-		return new NextResponse('Email is already registered', {
+		return new NextResponse('Email is already registered.', {
 			status: 400,
 		})
 	}

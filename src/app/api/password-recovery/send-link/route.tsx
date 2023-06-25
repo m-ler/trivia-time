@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
 	const user = await prisma.user.findFirst({ where: { email: email || '' } })
 
 	if (!user) {
-		return new NextResponse('That email does not belong to any account', {
+		return new NextResponse('That email does not belong to any account.', {
 			status: 400,
 		})
 	}
@@ -29,16 +29,16 @@ export const POST = async (req: NextRequest) => {
 		transporter.sendMail({
 			from: 'mler.developer@gmail.com',
 			to: email,
-			subject: 'Trivia Time! - Reset your password',
+			subject: 'Trivia Time! - Reset your password.',
 			html,
 		})
 	} catch (error) {
-		return new NextResponse("We couldn't send a verification email. Please try again later", {
+		return new NextResponse("We couldn't send a verification email. Please try again later.", {
 			status: 500,
 		})
 	}
 
-	return new NextResponse('We sent an email with a password-reset link', {
+	return new NextResponse('We sent an email with a password-reset link.', {
 		status: 200,
 	})
 }

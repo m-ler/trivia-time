@@ -23,13 +23,13 @@ export const POST = async (req: NextRequest) => {
 		const decoded = jwt.verify(token, NEXTAUTH_SECRET) as Token
 		email = decoded.email
 	} catch (err) {
-		return new NextResponse('Reset password link expired or is not valid', {
+		return new NextResponse('Reset password link expired or is not valid.', {
 			status: 400,
 		})
 	}
 
 	if (!email) {
-		return new NextResponse('Reset password link is not valid', {
+		return new NextResponse('Reset password link is not valid.', {
 			status: 400,
 		})
 	}
@@ -44,12 +44,12 @@ export const POST = async (req: NextRequest) => {
 			},
 		})
 	} catch (err) {
-		return new NextResponse("We couldn't update your pasword at this moment. Please try again later", {
+		return new NextResponse("We couldn't update your pasword at this moment. Please try again later.", {
 			status: 500,
 		})
 	}
 
-	return new NextResponse('Password has been updated', {
+	return new NextResponse('Password has been updated.', {
 		status: 200,
 	})
 }
