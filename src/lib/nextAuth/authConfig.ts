@@ -9,6 +9,7 @@ import signInSchema from '../zod/signInSchema'
 import { z } from 'zod'
 import { NextAuthOptions } from 'next-auth'
 import { GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET, NEXTAUTH_SECRET, NEXTAUTH_URL } from '@/config'
+import { Profile } from '@prisma/client'
 
 const authConfig: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma) as Adapter,
@@ -64,8 +65,13 @@ const authConfig: NextAuthOptions = {
 
 			return true
 		},
-		session({ session, token }) {
-			session.user.id = token.id
+		session: async ({ session, token }) => {
+			session.user.id = token.id as string
+			session.user.profile = (await prisma.profile.findUnique({
+				where: {
+					userId: token.id as string,
+				},
+			})) as Profile
 			return session
 		},
 		jwt({ token, account, user }) {

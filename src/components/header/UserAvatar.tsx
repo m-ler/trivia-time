@@ -18,7 +18,7 @@ const UserAvatar = () => {
 				<Tooltip hasArrow label="Profile">
 					<Avatar
 						name={user.name || ''}
-						src={user.image || ''}
+						src={user.profile.customImage || user.image || ''}
 						size="md"
 						referrerPolicy="no-referrer"
 						sx={{ cursor: 'pointer' }}

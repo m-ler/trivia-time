@@ -1,6 +1,6 @@
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
 export const DATABASE_URL = process.env.DATABASE_URL || ''
-export const SUPABASE_KEY = process.env.SUPABASE_KEY || ''
+export const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 export const GOOGLE_ID = process.env.GOOGLE_ID || ''
 export const GOOGLE_SECRET = process.env.GOOGLE_SECRET || ''
 export const GITHUB_ID = process.env.GITHUB_ID || ''
