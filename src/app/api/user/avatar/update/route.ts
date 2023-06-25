@@ -36,12 +36,12 @@ export const POST = async (req: NextRequest) => {
 			},
 		})
 	} catch (e) {
-		return new NextResponse("Couldn't update the image at this moment. Please try again later.", {
+		return new NextResponse("Couldn't update the avatar at this moment. Please try again later.", {
 			status: 500,
 		})
 	}
 
-	return new NextResponse('Image updated successfully.', {
+	return new NextResponse('Image avatar successfully.', {
 		status: 200,
 	})
 }

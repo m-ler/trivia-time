@@ -23,6 +23,7 @@ const ProfileDrawer = () => {
 					<Text fontWeight="bold" fontSize={24} textAlign="center">
 						{user?.name}
 					</Text>
+
 					<ScoreCard type="positive" score={3449} percentage={68} />
 					<ScoreCard type="negative" score={1549} percentage={32} />
 					<Divider my={2} />

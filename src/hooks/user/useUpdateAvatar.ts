@@ -10,9 +10,6 @@ const useUpdateAvatar = () => {
 	const uploadAvatarMutation = useMutation<AxiosResponse, unknown, File>(
 		async (imageFile: File) => {
 			const avatarSrc = await uploadAvatar(imageFile, session?.user?.email || '')
-
-			const formData = new FormData()
-			formData.append('avatarImg', imageFile)
 			return axios.post('api/user/avatar/update', {
 				avatarSrc,
 			})

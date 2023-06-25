@@ -1,4 +1,5 @@
 'use client'
+import useRemoveAvatar from '@/hooks/user/useRemoveAvatar'
 import useUpdateAvatar from '@/hooks/user/useUpdateAvatar'
 import { Avatar, Box, Center, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
@@ -10,6 +11,7 @@ const AvatarButton = () => {
 	const toast = useToast()
 	const inputFileRef = useRef<HTMLInputElement | null>(null)
 	const { updateAvatar } = useUpdateAvatar()
+	const { removeAvatar } = useRemoveAvatar()
 
 	const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e?.target?.files?.[0]
@@ -25,6 +27,7 @@ const AvatarButton = () => {
 
 		updateAvatar(file)
 	}
+	const avatarSrc = user?.profile.customImage || user?.image || ''
 
 	return (
 		<Menu placement="bottom">
@@ -41,8 +44,9 @@ const AvatarButton = () => {
 				_hover={{ '& #edit-icon': { opacity: 1 } }}
 			>
 				<Avatar
+					key={avatarSrc}
 					name={user?.name || ''}
-					src={user?.profile.customImage || user?.image || ''}
+					src={avatarSrc}
 					size="xl"
 					referrerPolicy="no-referrer"
 					border="6px solid #273F7C"
@@ -67,7 +71,11 @@ const AvatarButton = () => {
 				<MenuItem icon={<MdOutlineCameraAlt size={18} />} onClick={() => inputFileRef.current?.click()}>
 					Upload avatar
 				</MenuItem>
-				<MenuItem icon={<MdRemoveCircleOutline size={18} />}> Remove avatar</MenuItem>
+				{avatarSrc && (
+					<MenuItem icon={<MdRemoveCircleOutline size={18} />} onClick={() => removeAvatar()}>
+						Remove avatar
+					</MenuItem>
+				)}
 			</MenuList>
 			<input
 				type="file"
