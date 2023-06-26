@@ -58,13 +58,13 @@ const AvatarButton = () => {
 						id="edit-icon"
 						position="absolute"
 						inset={0}
-						bgColor="blackAlpha.600"
+						bgColor="blackAlpha.700"
 						rounded="full"
 						cursor="pointer"
 						transitionDuration="200ms"
 					>
 						<Center height="100%">
-							<MdOutlineModeEditOutline />
+							<MdOutlineModeEditOutline color="white" />
 						</Center>
 					</Box>
 				</Avatar>
