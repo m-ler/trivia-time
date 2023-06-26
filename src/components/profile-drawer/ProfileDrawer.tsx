@@ -9,6 +9,10 @@ import AvatarButton from './AvatarButton'
 const ProfileDrawer = () => {
 	const user = useSession().data?.user
 	const { open, setOpen } = profileDrawerState((state) => state)
+	const score = user?.profile.score || 0
+	const negativeScore = user?.profile.negativeScore || 0
+	const positivePercentage = (score * 100) / (score + negativeScore) || 0
+	const negativePercentage = (negativeScore * 100) / (score + negativeScore) || 0
 
 	const onClose = () => {
 		setOpen(false)
@@ -24,8 +28,8 @@ const ProfileDrawer = () => {
 						{user?.name}
 					</Text>
 
-					<ScoreCard type="positive" score={3449} percentage={68} />
-					<ScoreCard type="negative" score={1549} percentage={32} />
+					<ScoreCard type="positive" score={score} percentage={positivePercentage} />
+					<ScoreCard type="negative" score={negativeScore} percentage={negativePercentage} />
 					<Divider my={2} />
 					<Button mx="auto" size="sm" rightIcon={<MdExitToApp />} variant="outline" onClick={() => signOut()}>
 						Sign out

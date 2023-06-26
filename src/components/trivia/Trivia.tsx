@@ -6,10 +6,14 @@ import { currentTriviaState } from '@/store/currentTrivia'
 import { useEffect, useRef, useState } from 'react'
 import { TriviaObject } from '@/types'
 import useSFX from '@/hooks/useSFX'
+import { useSession } from 'next-auth/react'
+import useUpdateScore from '@/hooks/user/useUpdateScore'
 
 const TIMEOUT = 30
 
 const Trivia = () => {
+	const { data: session } = useSession()
+	const { updateScore } = useUpdateScore()
 	const { trivia } = useTriviaRequest()
 	const { topic, setOpen } = currentTriviaState((state) => state)
 	const [revealAnswer, setRevealAnswer] = useState(false)
@@ -38,9 +42,10 @@ const Trivia = () => {
 		}, 1000)
 	}, [])
 
-	const onOptionClick = () => {
+	const onOptionClick = (correct: boolean) => {
 		setRevealAnswer(true)
 		clearInterval(timerRef.current)
+		session && updateScore(correct)
 	}
 
 	if (!topic || !trivia) return <></>

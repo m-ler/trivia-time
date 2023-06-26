@@ -31,7 +31,7 @@ const ScoreCard = ({ score, percentage, type }: Props) => {
 					>
 						{`${scoreLabel} • `}
 					</Text>
-					{`${percentage}%`}
+					{`${percentage.toFixed(1)}%`}
 				</Text>
 			</Box>
 			<Text
