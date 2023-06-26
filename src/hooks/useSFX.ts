@@ -15,7 +15,7 @@ const useSFX = () => {
 		const audio = audioList[sfx]
 		if (!audio) return
 
-		const volume = parseInt(localStorage.getItem('volume') || '100')
+		const volume = window?.volume || 100
 		audio.volume = volume / 100
 		audio.currentTime = 0
 		audio.play()

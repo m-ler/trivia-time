@@ -25,14 +25,17 @@ import {
 import { useEffect, useState } from 'react'
 import { MdKey, MdVolumeUp } from 'react-icons/md'
 
+const savedVolume = typeof window !== 'undefined' ? localStorage.getItem('volume') : null
+
 const SettingsDialog = () => {
 	const { open, setOpen } = settingsDialogState((state) => state)
 	const [showVolumeTooltip, setShowVolumeTooltip] = useState(false)
-	const [volume, setVolume] = useState(parseInt(localStorage.getItem('volume') || '100'))
+	const [volume, setVolume] = useState(parseInt(savedVolume || '100'))
 	const { key, setKey } = userKeyState((state) => state)
 
 	useEffect(() => {
 		localStorage.setItem('volume', volume.toString())
+		window.volume = volume
 	}, [volume])
 
 	return (
