@@ -1,5 +1,5 @@
 import { getErrorMessages } from '@/lib/openai/errors'
-import { triviaDialogState } from '@/store/trivia-dialog'
+import { currentTriviaState } from '@/store/currentTrivia'
 import { Button, Flex, List, ListIcon, ListItem, Text } from '@chakra-ui/react'
 import { MdCancel } from 'react-icons/md'
 
@@ -10,7 +10,7 @@ type Props = {
 const defaultMessage = 'There seems to be an issue with the API at this time. Please try again later.'
 
 const APIError = ({ errorCode }: Props) => {
-	const { setOpen } = triviaDialogState((state) => state)
+	const { setOpen } = currentTriviaState((state) => state)
 	const errorMessages = getErrorMessages(errorCode) || []
 
 	const onClose = () => {

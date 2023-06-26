@@ -1,8 +1,8 @@
 import { TRIVIA_OPTIONS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { Button, Flex, Icon, Progress, Stack, Text } from '@chakra-ui/react'
-import TriviaOptionButton from './trivia-dialog/TriviaOptionButton'
-import { triviaDialogState } from '@/store/trivia-dialog'
+import TriviaOptionButton from './TriviaOptionButton'
+import { currentTriviaState } from '@/store/currentTrivia'
 import { useEffect, useRef, useState } from 'react'
 import { TriviaObject } from '@/types'
 import useSFX from '@/hooks/useSFX'
@@ -11,7 +11,7 @@ const TIMEOUT = 30
 
 const Trivia = () => {
 	const { trivia } = useTriviaRequest()
-	const { topic, setOpen } = triviaDialogState((state) => state)
+	const { topic, setOpen } = currentTriviaState((state) => state)
 	const [revealAnswer, setRevealAnswer] = useState(false)
 	const timerRef = useRef<number>(0)
 	const [seconds, setSeconds] = useState(TIMEOUT)

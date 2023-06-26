@@ -41,7 +41,7 @@ const validateTrivia = (triviaJSON: string) => {
 
 const triviaSchemaPromptExample = '{trivia: "question", a: "", b: "", c: "", d: "", correct: "a, b, c or d"}'
 const createPrompt = (topic: string, role: string) =>
-	`Give me a trivia about ${topic} that a ${role} would say. The trivia must have 4 options where only 1 is correct. Your response is always a JSON file with this schema: ${triviaSchemaPromptExample}`
+	`Generate a trivia about ${topic} that a ${role} would say. The trivia must have 4 options where only 1 is correct. Your response is always a JSON file with this schema: ${triviaSchemaPromptExample}`
 
 type APIError = {
 	response?: {
@@ -56,8 +56,8 @@ const getTrivia = async (topic: TriviaTopic, apiKey: string) => {
 		'{\n"trivia": "Which continent is also known as the \'Dark Continent\'?",\n"a": "Africa",\n"b": "ESPAÑAAA",\n"c": "South America",\n"d": "Australia",\n"correct": "d"\n}'
 
 	triviaResponse.trivia = test
-	return triviaResponse
- */
+	return triviaResponse */
+
 	try {
 		const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()
 		const role = humanRoles[randomNumber(0, humanRoles.length - 1)].toLowerCase()
