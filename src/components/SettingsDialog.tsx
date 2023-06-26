@@ -2,6 +2,8 @@
 import { settingsDialogState } from '@/store/settings-dialog'
 import { userKeyState } from '@/store/user-key'
 import {
+	Divider,
+	Flex,
 	FormControl,
 	FormHelperText,
 	FormLabel,
@@ -13,13 +15,25 @@ import {
 	ModalBody,
 	ModalContent,
 	ModalOverlay,
+	Slider,
+	SliderFilledTrack,
+	SliderThumb,
+	SliderTrack,
 	Stack,
+	Tooltip,
 } from '@chakra-ui/react'
-import { MdKey } from 'react-icons/md'
+import { useEffect, useState } from 'react'
+import { MdKey, MdVolumeUp } from 'react-icons/md'
 
 const SettingsDialog = () => {
 	const { open, setOpen } = settingsDialogState((state) => state)
+	const [showVolumeTooltip, setShowVolumeTooltip] = useState(false)
+	const [volume, setVolume] = useState(parseInt(localStorage.getItem('volume') || '100'))
 	const { key, setKey } = userKeyState((state) => state)
+
+	useEffect(() => {
+		localStorage.setItem('volume', volume.toString())
+	}, [volume])
 
 	return (
 		<Modal isOpen={open} onClose={() => setOpen(false)} autoFocus={false}>
@@ -47,6 +61,39 @@ const SettingsDialog = () => {
 									here.
 								</Link>
 							</FormHelperText>
+						</FormControl>
+
+						<Divider />
+
+						<FormControl>
+							<FormLabel>Volume</FormLabel>
+							<Flex gap={4}>
+								<MdVolumeUp size={24} />
+								<Slider
+									id="slider"
+									defaultValue={volume}
+									min={0}
+									max={100}
+									colorScheme="blue"
+									onChange={(value) => setVolume(value)}
+									onMouseEnter={() => setShowVolumeTooltip(true)}
+									onMouseLeave={() => setShowVolumeTooltip(false)}
+								>
+									<SliderTrack>
+										<SliderFilledTrack />
+									</SliderTrack>
+									<Tooltip
+										hasArrow
+										bg="blue.500"
+										color="white"
+										placement="bottom"
+										isOpen={showVolumeTooltip}
+										label={volume}
+									>
+										<SliderThumb />
+									</Tooltip>
+								</Slider>
+							</Flex>
 						</FormControl>
 					</Stack>
 				</ModalBody>
