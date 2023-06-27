@@ -62,6 +62,7 @@ model Profile {
   user          User     @relation(fields: [userId], references: [id])
   score         Int      @default(0)
   negativeScore Int      @default(0)
+  averageScore  Int      @default(0)
   createdAt     DateTime @default(now())
   customImage   String?
 }
