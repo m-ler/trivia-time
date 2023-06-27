@@ -28,6 +28,9 @@ export const PUT = async (req: NextRequest) => {
 						negativeScore: {
 							increment: positive ? 0 : 1,
 						},
+						averageScore: {
+							increment: positive ? 1 : -1,
+						},
 					},
 				},
 			},
