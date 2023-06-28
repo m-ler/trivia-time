@@ -14,29 +14,35 @@ export const POST = async (req: NextRequest) => {
 		})
 	}
 
-	const userAlreadyRegistered = await prisma.user.findFirst({
-		where: { email: userData.email },
-	})
+	try {
+		const userAlreadyRegistered = await prisma.user.findFirst({
+			where: { email: userData.email },
+		})
 
-	if (userAlreadyRegistered) {
-		return new NextResponse('Email is already registered.', {
-			status: 400,
+		if (userAlreadyRegistered) {
+			return new NextResponse('Email is already registered.', {
+				status: 400,
+			})
+		}
+
+		const hashedPassword = await hash(userData.password, 12)
+		const user = await prisma.user.create({
+			data: {
+				name: userData.username,
+				email: userData.email.toLowerCase(),
+				password: hashedPassword,
+			},
+		})
+
+		return NextResponse.json({
+			user: {
+				name: user.name,
+				email: user.email,
+			},
+		})
+	} catch (e) {
+		return new NextResponse('There was an error in the server. Please try again later.', {
+			status: 500,
 		})
 	}
-
-	const hashedPassword = await hash(userData.password, 12)
-	const user = await prisma.user.create({
-		data: {
-			name: userData.username,
-			email: userData.email.toLowerCase(),
-			password: hashedPassword,
-		},
-	})
-
-	return NextResponse.json({
-		user: {
-			name: user.name,
-			email: user.email,
-		},
-	})
 }
