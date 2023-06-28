@@ -52,11 +52,11 @@ type APIError = {
 
 const getTrivia = async (topic: TriviaTopic, apiKey: string) => {
 	const triviaResponse: TriviaAPIResponse = {}
-	/* const test =
+	const test =
 		'{\n"trivia": "Which continent is also known as the \'Dark Continent\'?",\n"a": "Africa",\n"b": "ESPAÑAAA",\n"c": "South America",\n"d": "Australia",\n"correct": "d"\n}'
 
 	triviaResponse.trivia = test
-	return triviaResponse */
+	return triviaResponse
 
 	try {
 		const subtopic = [topic, ...topicList[topic]][randomNumber(0, topicList[topic].length)].toLowerCase()

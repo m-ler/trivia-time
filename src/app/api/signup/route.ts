@@ -41,7 +41,7 @@ export const POST = async (req: NextRequest) => {
 			},
 		})
 	} catch (e) {
-		return new NextResponse('There was an error in the server. Please try again later.', {
+		return new NextResponse('There was an error on the server. Please try again later.', {
 			status: 500,
 		})
 	}

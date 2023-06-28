@@ -33,7 +33,10 @@ const SignInForm = () => {
 		},
 		{
 			onSuccess: (data) => {
-				if (!data?.error) router.push(data?.url || '/')
+				if (data?.ok && !data.error) {
+					router.push(data?.url || '/')
+					return
+				}
 			},
 		}
 	)
