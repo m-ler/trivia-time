@@ -50,17 +50,21 @@ const authConfig: NextAuthOptions = {
 			const { email } = user
 			if (!email) return false
 
-			const userData = await prisma.user.findUnique({
-				where: {
-					email,
-				},
-				include: {
-					profile: true,
-				},
-			})
+			try {
+				const userData = await prisma.user.findUnique({
+					where: {
+						email,
+					},
+					include: {
+						profile: true,
+					},
+				})
 
-			if (!userData?.profile && userData?.id) {
-				await prisma.profile.create({ data: { userId: userData.id } })
+				if (!userData?.profile && userData?.id) {
+					await prisma.profile.create({ data: { userId: userData.id } })
+				}
+			} catch (e) {
+				throw new Error('There was an error on the server. Please try again later.')
 			}
 
 			return true
