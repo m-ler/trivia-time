@@ -29,7 +29,7 @@ const AvatarButton = () => {
 	}
 
 	const loading = updatingAvatar || removingAvatar
-	const avatarSrc = user?.profile.customImage || user?.image || ''
+	const avatarSrc = user?.profile?.customImage || user?.image || ''
 
 	return (
 		<Menu placement="bottom">

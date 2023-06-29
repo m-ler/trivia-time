@@ -8,7 +8,7 @@ const useRemoveAvatar = () => {
 	const { update: updateSession, data: session } = useSession()
 	const toast = useToast()
 	const removeAvatarMutation = useMutation<AxiosResponse, unknown>(
-		async () => {			
+		async () => {
 			await deleteDirectory('media', session?.user.email || '')
 			return axios.delete('api/user/avatar/remove')
 		},
@@ -17,9 +17,7 @@ const useRemoveAvatar = () => {
 				toast({ title: 'Avatar succesfully removed.', status: 'success', duration: 5000, isClosable: true })
 				updateSession()
 			},
-			onError: (error) => {
-				console.log(error)
-
+			onError: () => {
 				toast({
 					title: "Couldn't remove the avatar. Please try again later.",
 					status: 'error',

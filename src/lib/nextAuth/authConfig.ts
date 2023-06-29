@@ -46,8 +46,14 @@ const authConfig: NextAuthOptions = {
 		signIn: `${NEXTAUTH_URL}/signin`,
 	},
 	callbacks: {
-		signIn: async ({ user }) => {
+		signIn: async ({ user, email: email1 }) => {
+			console.log('SIGN IN CALLBACK ______________________')
+			console.log('FIRST EMAIL ______________________')
+			console.log(email1)
+
 			const { email } = user
+			console.log('SECOND EMAIL ______________________')
+			console.log(email)
 			if (!email) return false
 
 			try {
@@ -70,6 +76,8 @@ const authConfig: NextAuthOptions = {
 			return true
 		},
 		session: async ({ session, token }) => {
+			console.log('SESSION CALLBACK ______________________')
+
 			session.user.id = token.id as string
 			session.user.profile = (await prisma.profile.findUnique({
 				where: {
@@ -79,6 +87,7 @@ const authConfig: NextAuthOptions = {
 			return session
 		},
 		jwt({ token, account, user }) {
+			console.log('JWT CALLBACK ______________________')
 			if (account) {
 				token.accessToken = account.access_token
 				token.id = user.id

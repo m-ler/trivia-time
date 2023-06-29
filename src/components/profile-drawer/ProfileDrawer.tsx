@@ -1,16 +1,30 @@
 'use client'
 import { profileDrawerState } from '@/store/profile-drawer'
-import { Button, Divider, Drawer, DrawerContent, DrawerOverlay, Flex, Text } from '@chakra-ui/react'
+import {
+	Button,
+	Divider,
+	Drawer,
+	DrawerContent,
+	DrawerOverlay,
+	Flex,
+	IconButton,
+	Link,
+	Stack,
+	Text,
+	Tooltip,
+} from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 import { MdExitToApp } from 'react-icons/md'
 import ScoreCard from './ScoreCard'
 import AvatarButton from './AvatarButton'
+import { BsPersonDash } from 'react-icons/bs'
+import { Link as NextLink } from '@chakra-ui/next-js'
 
 const ProfileDrawer = () => {
 	const user = useSession().data?.user
 	const { open, setOpen } = profileDrawerState((state) => state)
-	const score = user?.profile.score || 0
-	const negativeScore = user?.profile.negativeScore || 0
+	const score = user?.profile?.score || 0
+	const negativeScore = user?.profile?.negativeScore || 0
 	const positivePercentage = (score * 100) / (score + negativeScore) || 0
 	const negativePercentage = (negativeScore * 100) / (score + negativeScore) || 0
 
@@ -31,9 +45,16 @@ const ProfileDrawer = () => {
 					<ScoreCard type="positive" score={score} percentage={positivePercentage} />
 					<ScoreCard type="negative" score={negativeScore} percentage={negativePercentage} />
 					<Divider my={2} />
-					<Button mx="auto" size="sm" rightIcon={<MdExitToApp />} variant="outline" onClick={() => signOut()}>
-						Sign out
-					</Button>
+					<Stack direction="row" mx="auto">
+						<Tooltip hasArrow label="Delete account" openDelay={500}>
+							<Link as={NextLink} href="/delete-account">
+								<IconButton aria-label="Delete account" variant="outline" size="sm" icon={<BsPersonDash size={18} />} />
+							</Link>
+						</Tooltip>
+						<Button size="sm" rightIcon={<MdExitToApp />} variant="outline" onClick={() => signOut()}>
+							Sign out
+						</Button>
+					</Stack>
 				</Flex>
 			</DrawerContent>
 		</Drawer>
