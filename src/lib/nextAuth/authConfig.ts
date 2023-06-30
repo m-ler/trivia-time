@@ -46,48 +46,24 @@ const authConfig: NextAuthOptions = {
 		signIn: `${NEXTAUTH_URL}/signin`,
 	},
 	callbacks: {
-		signIn: async ({ user, email: email1 }) => {
-			console.log('SIGN IN CALLBACK ______________________')
-			console.log('FIRST EMAIL ______________________')
-			console.log(email1)
-
-			const { email } = user
-			console.log('SECOND EMAIL ______________________')
-			console.log(email)
-			if (!email) return false
-
-			try {
-				const userData = await prisma.user.findUnique({
-					where: {
-						email,
-					},
-					include: {
-						profile: true,
-					},
-				})
-
-				if (!userData?.profile && userData?.id) {
-					await prisma.profile.create({ data: { userId: userData.id } })
-				}
-			} catch (e) {
-				throw new Error('There was an error on the server. Please try again later.')
-			}
-
-			return true
-		},
+		signIn: async ({ user }) => Boolean(user.email),
 		session: async ({ session, token }) => {
-			console.log('SESSION CALLBACK ______________________')
+			const userId = token.id as string
+			session.user.id = userId
+			const userData = await prisma.user.findUnique({
+				where: { id: userId },
+				include: { profile: true },
+			})
 
-			session.user.id = token.id as string
-			session.user.profile = (await prisma.profile.findUnique({
-				where: {
-					userId: token.id as string,
-				},
-			})) as Profile
+			const invalidProfile = !userData?.profile && userData?.id
+			const profile = invalidProfile
+				? await prisma.profile.create({ data: { userId: userData.id } })
+				: (userData?.profile as Profile)
+
+			session.user.profile = profile
 			return session
 		},
 		jwt({ token, account, user }) {
-			console.log('JWT CALLBACK ______________________')
 			if (account) {
 				token.accessToken = account.access_token
 				token.id = user.id

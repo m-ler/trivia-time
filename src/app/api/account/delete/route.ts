@@ -24,8 +24,6 @@ export const DELETE = async () => {
 			prisma.user.delete({ where: { id: user.id } }),
 		])
 	} catch (e) {
-		console.log(e)
-
 		return new NextResponse("Couldn't delete the user account at this moment. Please try again later.", {
 			status: 500,
 		})
