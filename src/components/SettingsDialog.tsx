@@ -50,7 +50,7 @@ const SettingsDialog = () => {
 								<InputLeftAddon>
 									<MdKey />
 								</InputLeftAddon>
-								<Input type="text" defaultValue={key} onBlur={(e) => setKey(e.target.value)} />
+								<Input type="text" defaultValue={key} onBlur={(e) => setKey(e.target.value.trim())} />
 							</InputGroup>
 
 							<FormHelperText>
