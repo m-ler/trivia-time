@@ -52,7 +52,7 @@ const Trivia = () => {
 
 	return (
 		<Flex w="full" maxW="full" direction="column" gap={2}>
-			<Stack bg={topic.toLowerCase()} p={6} borderRadius="lg" mb={4} alignItems="start">
+			<Stack bg={topic.toLowerCase()} p={{ base: 4, sm: 6 }} borderRadius="lg" mb={4} alignItems="start">
 				<Stack w="full" direction="row" justifyContent="space-between" alignItems="flex-start">
 					<Stack direction="row" alignItems="center" borderRadius="md">
 						<Icon as={TRIVIA_TOPICS_ICONS[topic]} boxSize="4" color="white"></Icon>
@@ -65,7 +65,7 @@ const Trivia = () => {
 					</Text>
 				</Stack>
 
-				<Text fontWeight="bold" fontSize={18} color="whiteAlpha.800" lineHeight="6">
+				<Text fontWeight="bold" fontSize={{ base: 16, sm: 18 }} color="whiteAlpha.800" lineHeight="6">
 					{trivia.trivia}
 				</Text>
 				<Progress
@@ -88,7 +88,13 @@ const Trivia = () => {
 				/>
 			))}
 			{revealAnswer && (
-				<Button onClick={() => setOpen(false)} ml="auto" mt={6} colorScheme="blue">
+				<Button
+					onClick={() => setOpen(false)}
+					ml="auto"
+					mt={{ base: 4, sm: 6 }}
+					colorScheme="blue"
+					size={{ base: 'sm', sm: 'md' }}
+				>
 					Continue
 				</Button>
 			)}
