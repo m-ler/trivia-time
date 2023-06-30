@@ -1,4 +1,4 @@
-import { Box, Link } from '@chakra-ui/react'
+import { Box, Link, Flex } from '@chakra-ui/react'
 import { Link as NextLink } from '@chakra-ui/next-js'
 import NavLink from './NavLink'
 import Image from 'next/image'
@@ -22,8 +22,10 @@ const Navigation = () => {
 					/>
 				</Box>
 			</Link>
-			<NavLink label="Play" href="/play" />
-			<NavLink label="Leaderboard" href="/leaderboard" />
+			<Flex gap={8} display={{ base: 'none', md: 'flex' }}>
+				<NavLink label="Play" href="/play" />
+				<NavLink label="Leaderboard" href="/leaderboard" />
+			</Flex>
 		</>
 	)
 }
