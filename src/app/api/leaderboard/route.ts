@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma/client'
 import { NextResponse } from 'next/server'
+export const revalidate = 60
 
 export const GET = async () => {
 	try {
@@ -27,7 +28,7 @@ export const GET = async () => {
 			},
 			take: 100,
 		})
-		return NextResponse.json(users)
+		return NextResponse.json(users, {})
 	} catch (e) {
 		return new NextResponse('', { status: 500 })
 	}
