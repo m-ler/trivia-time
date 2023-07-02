@@ -7,7 +7,7 @@ import Image from 'next/image'
 const SignIn = () => {
 	return (
 		<Flex direction="row" w="full" minH="100vh">
-			<Flex flexGrow={1} maxWidth="lg" alignItems="center" display={{ base: 'none', md: 'flex' }} p={8}>
+			<Flex flexGrow={1} maxWidth="lg" alignItems="center" display={{ base: 'none', md: 'flex' }} >
 				<Image
 					width="0"
 					height="0"
