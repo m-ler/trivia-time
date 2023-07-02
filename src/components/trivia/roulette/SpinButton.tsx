@@ -9,6 +9,7 @@ const SpinButton = ({ onClick, disabled }: Props) => {
 	return (
 		<Box
 			pointerEvents={disabled ? 'none' : 'all'}
+			type="button"
 			as="button"
 			position="absolute"
 			inset="50%"
@@ -27,11 +28,13 @@ const SpinButton = ({ onClick, disabled }: Props) => {
 			outline="none"
 			transitionDuration="200ms"
 			sx={{
-				'&:hover': {
-					bgColor: 'white',
-					color: 'gray.900',
-					transform: 'translate(-50%, -50%) scale(1.1)',
-				},
+				...(!disabled && {
+					'&:hover': {
+						bgColor: 'white',
+						color: 'gray.900',
+						transform: 'translate(-50%, -50%) scale(1.1)',
+					},
+				}),
 			}}
 		>
 			<>
