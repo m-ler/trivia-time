@@ -20,6 +20,7 @@ const Navigation = () => {
 						height="0"
 						src="/img/trivia_time_icon.svg"
 						alt="logo"
+						priority
 						loading="eager"
 						blurDataURL={'/img/trivia_time_icon.svg'}
 						style={{
