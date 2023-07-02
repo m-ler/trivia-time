@@ -6,7 +6,8 @@ import TriviaRoulette from '@/components/trivia/roulette'
 import useTriviaRequest from '@/hooks/useTriviaRequest'
 import { currentTriviaState } from '@/store/currentTrivia'
 import { TriviaTopic } from '@/types'
-import { Box, Center, Collapse, Container, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Center, Collapse, Container, Flex, Stack } from '@chakra-ui/react'
+import TriviaLoadingState from '@/components/trivia/TriviaLoadingState'
 
 const Play = () => {
 	const currentTrivia = currentTriviaState((state) => state)
@@ -35,10 +36,7 @@ const Play = () => {
 						<Box maxW="550px">
 							<Stack w="full" alignItems="center" py={4} transitionDuration="200ms">
 								{triviaQuery.isFetching ? (
-									<Stack alignItems="center" p={4}>
-										<Text>🤖 Thinking...</Text>
-										<Spinner />
-									</Stack>
+									<TriviaLoadingState />
 								) : isError ? (
 									<APIError errorCode={triviaQuery.data?.data.errorCode || ''} />
 								) : trivia ? (

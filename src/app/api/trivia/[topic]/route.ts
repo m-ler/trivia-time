@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest, { params }: Params) => {
 	const topic = params.topic as TriviaTopic
 	const body: BodyParams = await req.json()
 	const { apiKey } = body
-	await new Promise((resolve) => setTimeout(resolve, 30000))
+	await new Promise((resolve) => setTimeout(resolve, 8000))
 	const response = await generateTrivia(topic || 'Entertainment', apiKey)
 
 	return NextResponse.json({ ...response })
