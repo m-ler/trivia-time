@@ -9,7 +9,7 @@ export const metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<html lang="en">
-			<body style={{ minWidth: 320 }}>
+			<body style={{ minWidth: 320, height: '100vh' }}>
 				<Providers>
 					<Background />
 					{children}
