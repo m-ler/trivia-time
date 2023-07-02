@@ -7,13 +7,17 @@ export const metadata = {
 } 
 
 const getLeaderboardData = async () => {
-	const response = await fetch(`${NEXTAUTH_URL}/api/leaderboard`, {
+	const res = await fetch(`${NEXTAUTH_URL}/api/leaderboard`, {
 		next: {
 			revalidate: 60,
 		}, 
 	})
 
-	const result = await response.json()
+	if (!res.ok) {
+		throw new Error('Failed to obtain leaderboard data')
+	}
+
+	const result = await res.json()
 	return result as UserWithProfile[]
 }
 
