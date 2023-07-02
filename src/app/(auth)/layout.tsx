@@ -1,5 +1,6 @@
 'use client'
 
+import SolidBackground from '@/components/theme/SolidBackground'
 import { Box } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,6 +9,7 @@ import { PropsWithChildren } from 'react'
 const RootLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<>
+			<SolidBackground />
 			<Box
 				position="fixed"
 				top={4}

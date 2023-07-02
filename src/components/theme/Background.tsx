@@ -14,7 +14,7 @@ const Background = () => {
 	)
 
 	return (
-		<Box position="absolute" inset={0} overflow="hidden">
+		<Box position="absolute" inset={0} overflow="hidden" zIndex={-1}>
 			<Box position="fixed" inset={0} bgGradient="linear(to-tr, #576DEC, #2E92F2)" zIndex={-3} />
 			{clouds}
 			<Box position="absolute" inset={0} bg="rgba(63,129,238,0.6)" zIndex={-1}></Box>
