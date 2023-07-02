@@ -1,4 +1,4 @@
-import Background from '@/components/theme/Background'
+import Background from '@/components/background/Background'
 import Providers from '@/config/Providers'
 import { PropsWithChildren } from 'react'
 

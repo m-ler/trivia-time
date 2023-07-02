@@ -1,0 +1,17 @@
+@keyframes cloud {
+	from {
+		scale: 0;
+	}
+	to {
+		scale: 1;
+	}
+}
+
+@keyframes cloud-layer {
+	from {
+		translate: 150% 0;
+	}
+	to {
+		translate: -150% 0;
+	}
+}

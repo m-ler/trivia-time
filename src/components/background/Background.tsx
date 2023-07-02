@@ -1,22 +1,24 @@
 'use client'
 
 import { Box } from '@chakra-ui/react'
-import Cloud from './Cloud'
 import { useMemo } from 'react'
+import CloudLayer from './CloudLayer'
+
+const CLOUD_LAYERS = 3
 
 const Background = () => {
-	const clouds = useMemo(
+	const cloudLayers = useMemo(
 		() =>
-			Array(70)
+			Array(CLOUD_LAYERS)
 				.fill(null)
-				.map((x, i) => <Cloud key={i} />),
+				.map((x, i) => <CloudLayer key={i} />),
 		[]
 	)
 
 	return (
 		<Box position="absolute" inset={0} overflow="hidden" zIndex={-1}>
 			<Box position="fixed" inset={0} bgGradient="linear(to-tr, #576DEC, #2E92F2)" zIndex={-3} />
-			{clouds}
+			{cloudLayers}
 			<Box position="absolute" inset={0} bg="rgba(63,129,238,0.6)" zIndex={-1}></Box>
 		</Box>
 	)

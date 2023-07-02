@@ -1,6 +1,6 @@
 'use client'
 
-import SolidBackground from '@/components/theme/SolidBackground'
+import SolidBackground from '@/components/background/SolidBackground'
 import { Box } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
