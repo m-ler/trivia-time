@@ -9,14 +9,14 @@ const Home = () => {
 	return (
 		<Box px={4}>
 			<Container maxW="6xl" sx={{ p: 0, mt: { base: 4, md: 12 } }}>
-				<Flex gap={8} alignItems="center" direction={{ base: 'column-reverse', md: 'row' }}>
+				<Flex gap={8} alignItems="center" direction={{ base: 'column', md: 'row' }}>
 					<Flex direction="column" flexBasis={{ base: '0', md: '480px' }}>
 						<Text
 							as="h1"
 							color="white"
-							fontSize={72}
+							fontSize={{ base: 58, md: 72 }}
 							fontWeight="black"
-							lineHeight="72px"
+							lineHeight={{ base: '58px', md: '72px' }}
 							bgClip="text"
 							bgGradient="linear(to-l, #D4DAF8, white)"
 							width="min-content"
@@ -32,7 +32,7 @@ const Home = () => {
 							</Button>
 						</Link>
 					</Flex>
-					<Box>
+					<Flex>
 						<Image
 							src="/img/illustrations/home.svg"
 							width="0"
@@ -44,7 +44,7 @@ const Home = () => {
 								height: 'auto',
 							}}
 						/>
-					</Box>
+					</Flex>
 				</Flex>
 			</Container>
 		</Box>
