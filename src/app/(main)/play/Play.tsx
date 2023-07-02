@@ -54,27 +54,3 @@ const Play = () => {
 }
 
 export default Play
-
-/*
-
-<Box>
-						{showIntroAnimation || !introAnimationEnded.current ? (
-							<TopicAnimation onAnimationComplete={onIntroAnimationEnd} />
-						) : (
-							<Stack w="full" alignItems="center" py={4}>
-								{triviaQuery.isFetching ? (
-									<Stack alignItems="center" p={4}>
-										<Text>🤖 Thinking...</Text>
-										<Spinner />
-									</Stack>
-								) : isError ? (
-									<APIError errorCode={triviaQuery.data?.data.errorCode || ''} />
-								) : trivia ? (
-									<Trivia />
-								) : (
-									<></>
-								)}
-							</Stack>
-						)}
-					</Box>
-*/
