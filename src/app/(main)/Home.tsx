@@ -23,7 +23,7 @@ const Home = () => {
 						>
 							TRIVIA <br /> TIME!
 						</Text>
-						<Text as="h3" color="white" fontSize={16} mt={4} display="block">
+						<Text as="h2" color="white" fontSize={16} mt={4} display="block">
 							Put your knowledge to the test with AI-generated trivias, compete with people around the world, climb the
 							leaderboard, and become a true trivia master.
 						</Text>
