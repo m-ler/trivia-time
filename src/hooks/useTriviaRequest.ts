@@ -25,8 +25,8 @@ const useTriviaRequest = () => {
 
 	const requestTrivia = (topic: TriviaTopic) => {
 		topicRef.current = topic
-		queryClient.cancelQueries(queryKey)
-		triviaQuery.refetch({})
+		queryClient.cancelQueries({ queryKey })
+		triviaQuery.refetch()
 	}
 
 	const trivia: TriviaObject = triviaQuery.data?.data.trivia ? JSON.parse(triviaQuery.data.data.trivia) : null

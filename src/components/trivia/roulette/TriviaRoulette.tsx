@@ -2,22 +2,25 @@
 
 import { Box } from '@chakra-ui/react'
 import RouletteItem from './RouletteItem'
-import anime from 'animejs'
+import anime, { AnimeInstance } from 'animejs'
 import SpinButton from './SpinButton'
 import { randomNumber } from '@/utils/math'
 import { TRIVIA_TOPICS, TRIVIA_TOPICS_ICONS } from '@/config/constants'
 import { TriviaTopic } from '@/types'
 import useSFX from '@/hooks/useSFX'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { currentTriviaState } from '@/store/currentTrivia'
 
 const SPIN_FORCE = 360 * 20
 const ROTATED_TRIVIA_TOPICS = [TRIVIA_TOPICS[0], ...TRIVIA_TOPICS.slice(1).reverse()]
 
+let routeletteAnimation: AnimeInstance | null = null
+let routeletteSFXAnimation: AnimeInstance | null = null
+
 const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => void) => {
 	const rotation = SPIN_FORCE + degrees
 
-	anime({
+	routeletteAnimation = anime({
 		targets: ['#trivia-roulette-items'],
 		rotate: [0, rotation],
 		duration: 4000,
@@ -27,12 +30,11 @@ const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => voi
 
 	const ticks = { ticks: 0, prevTicks: 0 }
 
-	anime({
+	routeletteSFXAnimation = anime({
 		targets: [ticks],
 		ticks: [0, (rotation / 360) * TRIVIA_TOPICS.length],
 		duration: 4000,
 		easing: 'easeOutQuart',
-		//round: 1,
 		update: () => {
 			const roundedTicks = Math.round(ticks.ticks)
 
@@ -42,6 +44,11 @@ const animateSpin = (degrees: number, onComplete: () => void, playSFX: () => voi
 			}
 		},
 	})
+}
+
+const cancelSpinAnimation = () => {
+	routeletteAnimation?.pause()
+	routeletteSFXAnimation?.pause()
 }
 
 type Props = {
@@ -64,6 +71,7 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 		const onComplete = () => {
 			playSFX('click1')
 			setTimeout(() => {
+				alert('HOLA DROSS')
 				onSpinEnd(topic)
 				setSpinning(false)
 			}, 700)
@@ -72,6 +80,12 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 		onSpinStart(topic)
 		animateSpin(degrees, onComplete, () => playSFX('roulette_tick'))
 	}
+
+	useEffect(() => {
+		return () => {
+			cancelSpinAnimation()
+		}
+	}, [])
 
 	return (
 		<Box
