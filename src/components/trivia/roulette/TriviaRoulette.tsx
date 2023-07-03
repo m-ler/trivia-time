@@ -71,7 +71,6 @@ const TriviaRoulette = ({ onSpinStart, onSpinEnd }: Props) => {
 		const onComplete = () => {
 			playSFX('click1')
 			setTimeout(() => {
-				alert('HOLA DROSS')
 				onSpinEnd(topic)
 				setSpinning(false)
 			}, 700)
