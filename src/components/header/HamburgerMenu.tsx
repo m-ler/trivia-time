@@ -8,6 +8,7 @@ const HamburgerMenu = () => {
 	return (
 		<Menu placement="bottom" offset={[0, 20]}>
 			<MenuButton
+				aria-label="Menu"
 				as={IconButton}
 				icon={<MdMenu size={20} />}
 				display={{ base: 'inline-flex', md: 'none' }}

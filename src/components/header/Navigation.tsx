@@ -31,7 +31,7 @@ const Navigation = () => {
 					/>
 				</Box>
 			</Link>
-			<Flex gap={8} display={{ base: 'none', md: 'flex' }}>
+			<Flex as="nav" gap={8} display={{ base: 'none', md: 'flex' }}>
 				<NavLink label="Play" href="/play" />
 				<NavLink label="Leaderboard" href="/leaderboard" />
 			</Flex>
