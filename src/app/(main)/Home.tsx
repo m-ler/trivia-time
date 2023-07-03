@@ -23,14 +23,15 @@ const Home = () => {
 						>
 							TRIVIA <br /> TIME!
 						</Text>
-						<Text as="h3" color="white" fontSize={16} mt={4}>
-							Put your knowledge to the test with AI-generated trivias and ascend the leaderboard to claim the top spot.
+						<Text as="h3" color="white" fontSize={16} mt={4} display="block">
+							Put your knowledge to the test with AI-generated trivias, compete with people around the world, climb the
+							leaderboard, and become a true trivia master.
+							<Link href="/play" style={{ display: 'block', width: 'fit-content', height: 'fit-content' }}>
+								<Button colorScheme="yellow" mt={8} mr="auto" size="lg" rightIcon={<MdPlayCircleFilled size={22} />}>
+									START
+								</Button>
+							</Link>
 						</Text>
-						<Link href="/play">
-							<Button colorScheme="yellow" mt={8} mr="auto" size="lg" rightIcon={<MdPlayCircleFilled size={22} />}>
-								START
-							</Button>
-						</Link>
 					</Flex>
 					<Flex>
 						<Image
