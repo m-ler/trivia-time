@@ -24,4 +24,4 @@ Play AI-generated trivias and explore the fascinating worlds of art, entertainme
 - Database on Supabase
 - Users leaderboard
 - OpenAI's GPT API integration
-- Form validation Zod and React Hook Form
+- Form validation with Zod and React Hook Form
