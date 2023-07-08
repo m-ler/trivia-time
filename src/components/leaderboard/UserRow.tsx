@@ -26,7 +26,12 @@ const UserRow = ({ user, index }: Props) => {
 					<Text fontSize={12} fontWeight="bold" width="15px">
 						{index}
 					</Text>
-					<Avatar size="sm" name={user?.name || ''} src={user?.profile?.customImage || user?.image || ''}></Avatar>
+					<Avatar
+						size="sm"
+						key={user.name || ''}
+						name={user?.name || ''}
+						src={user?.profile?.customImage || user?.image || ''}
+					></Avatar>
 					<Text>{user?.name}</Text>
 					{index === 1 && (
 						<Box color="yellow.400">
