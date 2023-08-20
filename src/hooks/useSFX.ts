@@ -3,12 +3,16 @@ import { SFX } from '@/types'
 import { useEffect } from 'react'
 
 const audioList: { [key in SFX | string]: HTMLAudioElement | null } = {}
+let audioListLoaded = false
 
 const useSFX = () => {
 	useEffect(() => {
+		if (audioListLoaded) return
+		
 		SFX_LIST.forEach((sfx) => {
 			audioList[sfx] = new Audio(`/audio/${sfx}.mp3`)
 		})
+		audioListLoaded = true
 	}, [])
 
 	const playSFX = (sfx: SFX) => {
