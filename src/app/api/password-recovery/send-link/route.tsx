@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
 		const resetLink = `${NEXTAUTH_URL}/reset-password?token=${token}`
 		const html = render(<ResetPasswordTemplate userName={user.name || ''} resetLink={resetLink} />)
 
-		transporter.sendMail({
+		await transporter.sendMail({
 			from: 'mler.developer@gmail.com',
 			to: email,
 			subject: 'Trivia Time! - Reset your password.',
