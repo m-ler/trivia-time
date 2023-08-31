@@ -43,7 +43,7 @@ const SettingsButton = () => {
 			</PopoverTrigger>
 			<PopoverContent maxWidth="200px" boxShadow="0px 2px 4px rgba(0,0,0,0.25)">
 				<PopoverArrow />
-				<PopoverBody fontSize={14}>Go to settings to set up your API key 🗝️</PopoverBody>
+				<PopoverBody fontSize={14}>You can use your own API key 🗝️</PopoverBody>
 				<PopoverFooter display="flex" justifyContent="flex-end">
 					<Button variant="outline" size="sm" px={2} py={0} fontSize={12} onClick={onPopoverClose}>
 						Got it
