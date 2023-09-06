@@ -1,5 +1,5 @@
 import Leaderboard from '@/components/leaderboard'
-import { NEXTAUTH_URL } from '@/config'
+import { prisma } from '@/lib/prisma/client'
 import { UserWithProfile } from '@/types'
 
 export const metadata = {
@@ -7,18 +7,36 @@ export const metadata = {
 }
 
 const getLeaderboardData = async () => {
-	const res = await fetch(`${NEXTAUTH_URL}/api/leaderboard`, {
-		next: {
-			revalidate: 60,
-		},
-	})
+	try {
+		const users = await prisma.user.findMany({
+			where: {
+				profile: { isNot: null },
+			},
+			orderBy: {
+				profile: {
+					averageScore: 'desc',
+				},
+			},
+			select: {
+				email: true,
+				image: true,
+				name: true,
+				profile: {
+					select: {
+						customImage: true,
+						score: true,
+						negativeScore: true,
+						averageScore: true,
+					},
+				},
+			},
+			take: 100,
+		})
 
-	if (!res.ok) {
+		return users as UserWithProfile[]
+	} catch {
 		return []
 	}
-
-	const result = await res.json()
-	return result as UserWithProfile[]
 }
 
 const Page = async () => {
