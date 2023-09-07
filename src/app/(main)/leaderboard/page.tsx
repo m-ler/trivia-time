@@ -7,36 +7,31 @@ export const metadata = {
 }
 
 const getLeaderboardData = async () => {
-	try {
-		const users = await prisma.user.findMany({
-			where: {
-				profile: { isNot: null },
+	const users = await prisma.user.findMany({
+		where: {
+			profile: { isNot: null },
+		},
+		orderBy: {
+			profile: {
+				averageScore: 'desc',
 			},
-			orderBy: {
-				profile: {
-					averageScore: 'desc',
+		},
+		select: {
+			email: true,
+			image: true,
+			name: true,
+			profile: {
+				select: {
+					customImage: true,
+					score: true,
+					negativeScore: true,
+					averageScore: true,
 				},
 			},
-			select: {
-				email: true,
-				image: true,
-				name: true,
-				profile: {
-					select: {
-						customImage: true,
-						score: true,
-						negativeScore: true,
-						averageScore: true,
-					},
-				},
-			},
-			take: 100,
-		})
-
-		return users as UserWithProfile[]
-	} catch {
-		return []
-	}
+		},
+		take: 100,
+	})
+	return users as UserWithProfile[]
 }
 
 const Page = async () => {

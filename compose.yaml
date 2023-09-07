@@ -1,0 +1,16 @@
+version: '3.6'
+services:
+  trivia-time:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DATABASE_URL=${DATABASE_URL}
+        - NEXT_PUBLIC_SUPABASE_KEY=${NEXT_PUBLIC_SUPABASE_KEY}
+        - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+        - NEXTAUTH_URL=${NEXTAUTH_URL}
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    image: trivia-time
